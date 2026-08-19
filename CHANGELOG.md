@@ -22,7 +22,8 @@ Ships as two packs. **Both are required:** the behavior pack runs the logic, the
 - **`/scriptevent soulglass:find`** lists the caller's graves. Sneaking with the map does the same thing and needs no cheats.
 - **Documentation site** built with MkDocs Material, split by audience: players, server owners, developers. [`docs/architecture.md`](docs/architecture.md) records the API constraints behind each design decision.
 - **`tools/check.py`** — static analysis covering what can be checked without running the game: imports resolving, config keys existing, translation keys present in every language file, characters that would break the in-game font, JSON validity, and side effects that would throw inside `beforeEvents`.
-- **`build.py`** — produces the release packages on Windows, Linux and macOS alike.
+- **`tools/build.py`** — produces the release packages on Windows, Linux and macOS alike. Three of them: the `.mcaddon` that installs both halves at once, and each half as its own `.mcpack` for server owners placing them by hand.
+- **Build provenance on every release artifact.** Each package is signed against the commit, workflow and runner that produced it, so a download can be traced back to this repository rather than to someone who repacked it: `gh attestation verify Soulglass_v1.0.0.mcaddon --repo NullSablex/bedrock-soulglass`.
 
 ### Notes
 
