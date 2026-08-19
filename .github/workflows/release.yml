@@ -56,11 +56,18 @@ jobs:
       # not from someone who repacked it:
       #   gh attestation verify Soulglass_v1.0.0.mcaddon --repo NullSablex/bedrock-soulglass
       - name: Attest build provenance
+        id: attest
         uses: actions/attest-build-provenance@4d101475d8b20a2381f78447822ac1eab6504dd8 # v4.2.2
         with:
           subject-path: |
             dist/*.mcaddon
             dist/*.mcpack
+
+      # The attestation also travels with the release, not only in GitHub's
+      # attestation store. That lets anyone verify a download offline, and it
+      # is what a scanner looks for when it asks whether releases are signed.
+      - name: Attach the provenance bundle
+        run: cp "${{ steps.attest.outputs.bundle-path }}" dist/provenance.intoto.jsonl
 
       - name: Build release body
         env:
@@ -122,5 +129,6 @@ jobs:
           files: |
             dist/*.mcaddon
             dist/*.mcpack
+            dist/provenance.intoto.jsonl
           draft: false
           prerelease: false
