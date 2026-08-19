@@ -1,5 +1,11 @@
 # Pinned on purpose: the docs build has to produce the same site today and in a
 # year. Bump these deliberately, never implicitly.
+
+# Held at 1.x on purpose, not merely out of caution. MkDocs 2.0 removes the
+# plugin system and rewrites theming, with no migration path - Material for
+# MkDocs does not run on it. Dependabot is told to leave the major alone in
+# .github/dependabot.yml; revisit only when Material itself supports 2.x.
 mkdocs==1.6.1
-mkdocs-material==9.5.49
-pymdown-extensions==10.12
+
+mkdocs-material==9.7.7
+pymdown-extensions==11.0.1
