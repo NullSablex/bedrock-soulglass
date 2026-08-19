@@ -1,0 +1,58 @@
+## Soulglass — tradução para português do Brasil.
+## Base: en_US.lang. Chave ausente aqui cai para o inglês.
+
+pack.name=Soulglass
+pack.description=Seus itens e sua experiência esperam por você numa sepultura no lugar da morte.
+
+## Chat -------------------------------------------------------------------
+soulglass.marked=§8[§6Soulglass§8] §7Sua sepultura foi marcada.
+soulglass.marked.xp=§8[§6Soulglass§8] §7Sua sepultura foi marcada, guardando §a%s §7de experiência.
+soulglass.use_map=§8[§6Soulglass§8] §7Use o §6mapa §7para achar o caminho de volta.
+soulglass.overflow.one=§8[§6Soulglass§8] §c1 item não coube e ficou no chão.
+soulglass.overflow.many=§8[§6Soulglass§8] §c%s itens não couberam e ficaram no chão.
+soulglass.lost=§8[§6Soulglass§8] §cOs itens desta sepultura se perderam.
+soulglass.recovered.one=§8[§6Soulglass§8] §7Você recuperou §f1 item§7.
+soulglass.recovered.many=§8[§6Soulglass§8] §7Você recuperou §f%s itens§7.
+soulglass.recovered.none=§8[§6Soulglass§8] §7Não sobrou nada para recuperar.
+soulglass.equipped.one=§8[§6Soulglass§8] §f1 peça §7voltou ao corpo.
+soulglass.equipped.many=§8[§6Soulglass§8] §f%s peças §7voltaram ao corpo.
+soulglass.dropped.one=§8[§6Soulglass§8] §71 item caiu no chão, sua mochila está cheia.
+soulglass.dropped.many=§8[§6Soulglass§8] §7%s itens caíram no chão, sua mochila está cheia.
+soulglass.xp.recovered=§8[§6Soulglass§8] §7+§a%s §7de experiência recuperada.
+
+## Lista de sepulturas ------------------------------------------------------
+soulglass.list.none=§8[§6Soulglass§8] §7Você não tem nenhuma sepultura.
+soulglass.list.one=§8[§6Soulglass§8] §7Sua sepultura:
+soulglass.list.many=§8[§6Soulglass§8] §7Suas %s sepulturas, da mais próxima à mais distante:
+soulglass.list.entry=  §8- §f%s %s %s §8- §f%s
+soulglass.list.entry.far=  §8- §f%s %s %s §8%s
+soulglass.list.xp=§8 +%s xp
+
+## Barra de ação ------------------------------------------------------------
+soulglass.hud.arrived=§aSua sepultura está bem aqui
+soulglass.hud.prefix=§6Sepultura  §f
+soulglass.hud.above=§8 - §7%s acima
+soulglass.hud.below=§8 - §7%s abaixo
+soulglass.hud.other_dimension=§8Nenhuma sepultura nesta dimensão §7(%s em outra)
+soulglass.hud.none=§8Você não tem sepulturas
+soulglass.hint.break=§eQuebre a sepultura para recuperar seus itens
+soulglass.hint.owner=§cEsta sepultura é de %s
+
+## Unidades -----------------------------------------------------------------
+soulglass.blocks.one=1 bloco
+soulglass.blocks.many=%s blocos
+
+## Direções, relativas a para onde o jogador está olhando -------------------
+soulglass.dir.0=em frente
+soulglass.dir.1=à frente-direita
+soulglass.dir.2=à sua direita
+soulglass.dir.3=atrás, pela direita
+soulglass.dir.4=atrás de você
+soulglass.dir.5=atrás, pela esquerda
+soulglass.dir.6=à sua esquerda
+soulglass.dir.7=à frente-esquerda
+
+## Dimensões ----------------------------------------------------------------
+soulglass.dim.overworld=Superfície
+soulglass.dim.nether=Nether
+soulglass.dim.the_end=O Fim

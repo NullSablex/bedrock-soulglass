@@ -1,0 +1,5 @@
+# Pinned on purpose: the docs build has to produce the same site today and in a
+# year. Bump these deliberately, never implicitly.
+mkdocs==1.6.1
+mkdocs-material==9.5.49
+pymdown-extensions==10.12

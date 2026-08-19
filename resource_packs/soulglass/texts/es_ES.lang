@@ -1,0 +1,58 @@
+## Soulglass — traducción al español.
+## Base: en_US.lang. Una clave que falte aquí recurre al inglés.
+
+pack.name=Soulglass
+pack.description=Tus objetos y tu experiencia te esperan en una tumba donde moriste.
+
+## Chat -------------------------------------------------------------------
+soulglass.marked=§8[§6Soulglass§8] §7Tu tumba ha sido marcada.
+soulglass.marked.xp=§8[§6Soulglass§8] §7Tu tumba ha sido marcada, guardando §a%s §7de experiencia.
+soulglass.use_map=§8[§6Soulglass§8] §7Usa el §6mapa §7para encontrar el camino de vuelta.
+soulglass.overflow.one=§8[§6Soulglass§8] §c1 objeto no cupo y quedó en el suelo.
+soulglass.overflow.many=§8[§6Soulglass§8] §c%s objetos no cupieron y quedaron en el suelo.
+soulglass.lost=§8[§6Soulglass§8] §cLos objetos de esta tumba se perdieron.
+soulglass.recovered.one=§8[§6Soulglass§8] §7Recuperaste §f1 objeto§7.
+soulglass.recovered.many=§8[§6Soulglass§8] §7Recuperaste §f%s objetos§7.
+soulglass.recovered.none=§8[§6Soulglass§8] §7No quedaba nada por recuperar.
+soulglass.equipped.one=§8[§6Soulglass§8] §f1 pieza §7volvió a su sitio.
+soulglass.equipped.many=§8[§6Soulglass§8] §f%s piezas §7volvieron a su sitio.
+soulglass.dropped.one=§8[§6Soulglass§8] §71 objeto cayó al suelo, tu mochila está llena.
+soulglass.dropped.many=§8[§6Soulglass§8] §7%s objetos cayeron al suelo, tu mochila está llena.
+soulglass.xp.recovered=§8[§6Soulglass§8] §7+§a%s §7de experiencia recuperada.
+
+## Lista de tumbas ----------------------------------------------------------
+soulglass.list.none=§8[§6Soulglass§8] §7No tienes ninguna tumba.
+soulglass.list.one=§8[§6Soulglass§8] §7Tu tumba:
+soulglass.list.many=§8[§6Soulglass§8] §7Tus %s tumbas, de la más cercana a la más lejana:
+soulglass.list.entry=  §8- §f%s %s %s §8- §f%s
+soulglass.list.entry.far=  §8- §f%s %s %s §8%s
+soulglass.list.xp=§8 +%s xp
+
+## Barra de acción ----------------------------------------------------------
+soulglass.hud.arrived=§aTu tumba está justo aquí
+soulglass.hud.prefix=§6Tumba  §f
+soulglass.hud.above=§8 - §7%s arriba
+soulglass.hud.below=§8 - §7%s abajo
+soulglass.hud.other_dimension=§8Ninguna tumba en esta dimensión §7(%s en otra)
+soulglass.hud.none=§8No tienes tumbas
+soulglass.hint.break=§eRompe la tumba para recuperar tus objetos
+soulglass.hint.owner=§cEsta tumba es de %s
+
+## Unidades -----------------------------------------------------------------
+soulglass.blocks.one=1 bloque
+soulglass.blocks.many=%s bloques
+
+## Direcciones, relativas a hacia dónde mira el jugador ---------------------
+soulglass.dir.0=al frente
+soulglass.dir.1=al frente y a la derecha
+soulglass.dir.2=a tu derecha
+soulglass.dir.3=detrás, por la derecha
+soulglass.dir.4=detrás de ti
+soulglass.dir.5=detrás, por la izquierda
+soulglass.dir.6=a tu izquierda
+soulglass.dir.7=al frente y a la izquierda
+
+## Dimensiones --------------------------------------------------------------
+soulglass.dim.overworld=Superficie
+soulglass.dim.nether=Nether
+soulglass.dim.the_end=El End

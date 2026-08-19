@@ -1,0 +1,79 @@
+name: Bug report
+description: Something behaves differently from what the docs describe
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Before filing: turn on **Content Log GUI** under Settings → Creator.
+        Script errors are invisible without it, and the log usually names the
+        problem outright.
+
+  - type: input
+    id: game-version
+    attributes:
+      label: Minecraft version
+      placeholder: "1.26.4403.0"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: platform
+    attributes:
+      label: Where it runs
+      options:
+        - Single player world
+        - Bedrock Dedicated Server
+        - Realm
+        - Other
+    validations:
+      required: true
+
+  - type: input
+    id: addon-version
+    attributes:
+      label: Soulglass version
+      placeholder: "1.0.0"
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: both-packs
+    attributes:
+      label: Pack check
+      options:
+        - label: Both the behavior pack and the resource pack are enabled
+          required: true
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened
+      description: What you expected, and what you got instead.
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: How to reproduce it
+      placeholder: |
+        1. Die in ...
+        2. Respawn and ...
+        3. The grave ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: content-log
+    attributes:
+      label: Content log
+      description: Anything mentioning [Soulglass]. Leave blank if empty.
+      render: text
+
+  - type: textarea
+    id: config
+    attributes:
+      label: Changes to config.js
+      description: Only the values you changed from the defaults.
+      render: js
