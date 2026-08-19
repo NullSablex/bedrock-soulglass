@@ -1,0 +1,25 @@
+version: 2
+updates:
+  # The add-on itself has no dependencies - it ships the JavaScript the game
+  # runs. What can drift is the CI toolchain, and a stale pinned action is the
+  # most likely source of a broken build here.
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly
+    commit-message:
+      prefix: "ci"
+    labels:
+      - dependencies
+
+  # The docs toolchain is pinned so the site builds the same a year from now.
+  # These updates are proposed, never automatic.
+  - package-ecosystem: pip
+    directory: /
+    schedule:
+      interval: monthly
+    commit-message:
+      prefix: "docs"
+    labels:
+      - dependencies
+      - documentation

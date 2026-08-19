@@ -1,20 +1,28 @@
 #!/usr/bin/env python3
 """
-Builds dist/Soulglass_v<version>.mcaddon from behavior_packs/ and resource_packs/.
+Builds the release packages into dist/.
 
-The addon ships as one .mcaddon because it has two halves: the behavior pack
-runs the logic, the resource pack carries the translation strings. A single
-file installs both, so nobody ends up with a missing half.
+Three of them, because two different people download this:
+
+    Soulglass_v<version>.mcaddon     both packs; opening it installs the lot
+    Soulglass_BP_v<version>.mcpack   behavior pack alone
+    Soulglass_RP_v<version>.mcpack   resource pack alone
+
+A player wants the one that just works. A server owner placing each half by
+hand wants the halves. Shipping only the combined file forces them to unzip it;
+shipping only the halves makes the common case harder than it needs to be.
 
 Python rather than a shell script: Git Bash on Windows has no `zip`, and its
-GNU tar cannot produce ZIP archives. Python's zipfile is in the standard
-library and behaves the same on Windows, Linux and macOS.
+GNU tar cannot produce ZIP archives. `zipfile` is in the standard library and
+behaves the same on Windows, Linux and macOS.
 
-Entry names are written with forward slashes on purpose. PowerShell's
-Compress-Archive writes backslashes, which violates the ZIP spec and gets the
-package rejected by several clients and by BDS.
+Entry names use forward slashes deliberately. PowerShell's Compress-Archive
+writes backslashes, which violates the ZIP spec and gets the package rejected
+by several clients and by BDS.
 
-Usage:  python build.py
+Usage:
+    python build.py          # the .mcaddon only
+    python build.py --all    # all three
 """
 
 import json
@@ -23,57 +31,89 @@ import zipfile
 from pathlib import Path
 
 ROOT = Path(__file__).parent
+DIST = ROOT / "dist"
+ADDON = "Soulglass"
 
-# On disk both packs are called "soulglass", each under its own kind folder.
-# Inside the archive they need distinct names or one would overwrite the other.
-PARTS = [
-    (Path("behavior_packs") / "soulglass", "soulglass_BP"),
-    (Path("resource_packs") / "soulglass", "soulglass_RP"),
-]
+# (folder on disk, name inside an archive)
+BEHAVIOR = (Path("behavior_packs") / "soulglass", "soulglass_BP")
+RESOURCE = (Path("resource_packs") / "soulglass", "soulglass_RP")
 
 
 def read_version() -> str:
-    manifest = json.loads((ROOT / PARTS[0][0] / "manifest.json").read_text(encoding="utf-8"))
+    manifest = json.loads((ROOT / BEHAVIOR[0] / "manifest.json").read_text(encoding="utf-8"))
     return ".".join(str(n) for n in manifest["header"]["version"])
 
 
-def build() -> int:
-    version = read_version()
-    dist = ROOT / "dist"
-    dist.mkdir(exist_ok=True)
+def check_versions_match() -> str:
+    """
+    Both manifests carry their own version, and the game does not care whether
+    they agree. A mismatch only shows up as a dependency the game cannot
+    resolve, which reads as "the pack is broken" rather than "you forgot one".
+    """
+    versions = {}
+    for source, _ in (BEHAVIOR, RESOURCE):
+        manifest = json.loads((ROOT / source / "manifest.json").read_text(encoding="utf-8"))
+        versions[str(source)] = ".".join(str(n) for n in manifest["header"]["version"])
 
-    package = dist / f"Soulglass_v{version}.mcaddon"
-    package.unlink(missing_ok=True)
+    if len(set(versions.values())) != 1:
+        for pack, version in versions.items():
+            print(f"  {pack}: {version}", file=sys.stderr)
+        raise SystemExit("manifest versions disagree")
 
+    return next(iter(versions.values()))
+
+
+def write_archive(path: Path, parts) -> int:
+    """`parts` is a list of (folder on disk, prefix inside the archive)."""
+    path.unlink(missing_ok=True)
     written = 0
-    with zipfile.ZipFile(package, "w", zipfile.ZIP_DEFLATED) as archive:
-        for source, prefix in PARTS:
+
+    with zipfile.ZipFile(path, "w", zipfile.ZIP_DEFLATED) as archive:
+        for source, prefix in parts:
             folder = ROOT / source
             if not folder.is_dir():
-                print(f"missing pack folder: {source}", file=sys.stderr)
-                return 1
+                raise SystemExit(f"missing pack folder: {source}")
 
-            for path in sorted(folder.rglob("*")):
-                if not path.is_file():
+            for file in sorted(folder.rglob("*")):
+                if not file.is_file():
                     continue
-                entry = f"{prefix}/{path.relative_to(folder).as_posix()}"
-                archive.write(path, entry)
+                # An .mcpack holds one pack at its root; an .mcaddon holds each
+                # pack in a folder of its own, so they cannot collide.
+                relative = file.relative_to(folder).as_posix()
+                archive.write(file, f"{prefix}/{relative}" if prefix else relative)
                 written += 1
 
-    # Each pack's manifest.json has to sit at the root of its own folder, or
-    # the game ignores that pack without a clear error.
-    with zipfile.ZipFile(package) as archive:
-        roots = {f"{prefix}/manifest.json" for _, prefix in PARTS}
-        missing = roots - set(archive.namelist())
-        if missing:
-            print(f"manifest not at pack root: {', '.join(sorted(missing))}", file=sys.stderr)
-            return 1
+    return written
 
-    print(f"built: {package}")
-    print(f"  version: {version}")
-    print(f"  files:   {written}")
+
+def verify(path: Path, expected_manifests) -> None:
+    """A manifest that is not at its pack root makes the game ignore the pack."""
+    with zipfile.ZipFile(path) as archive:
+        names = set(archive.namelist())
+    missing = set(expected_manifests) - names
+    if missing:
+        raise SystemExit(f"{path.name}: manifest not at pack root: {', '.join(sorted(missing))}")
+
+
+def build(all_packages: bool) -> int:
+    version = check_versions_match()
+    DIST.mkdir(exist_ok=True)
+
+    combined = DIST / f"{ADDON}_v{version}.mcaddon"
+    count = write_archive(combined, [BEHAVIOR, RESOURCE])
+    verify(combined, [f"{BEHAVIOR[1]}/manifest.json", f"{RESOURCE[1]}/manifest.json"])
+    print(f"built: {combined.name}  ({count} files)")
+
+    if all_packages:
+        for source, label in ((BEHAVIOR, "BP"), (RESOURCE, "RP")):
+            single = DIST / f"{ADDON}_{label}_v{version}.mcpack"
+            count = write_archive(single, [(source[0], "")])
+            verify(single, ["manifest.json"])
+            print(f"built: {single.name}  ({count} files)")
+
+    print(f"\nversion {version} -> {DIST}")
     return 0
 
 
 if __name__ == "__main__":
-    sys.exit(build())
+    sys.exit(build(all_packages="--all" in sys.argv))

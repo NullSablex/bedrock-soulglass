@@ -2,6 +2,8 @@
 
 [![check](https://github.com/NullSablex/bedrock-soulglass/actions/workflows/check.yml/badge.svg)](https://github.com/NullSablex/bedrock-soulglass/actions/workflows/check.yml)
 [![docs](https://github.com/NullSablex/bedrock-soulglass/actions/workflows/docs.yml/badge.svg)](https://nullsablex.github.io/bedrock-soulglass/)
+[![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/NullSablex/bedrock-soulglass/badge)](https://scorecard.dev/viewer/?uri=github.com/NullSablex/bedrock-soulglass)
+[![license](https://img.shields.io/badge/license-MPL--2.0-blue)](LICENSE)
 
 Death add-on for **Minecraft Bedrock 1.26**. Your belongings stay behind in a
 grave marked by a soul lantern, and a map leads you back to them.
@@ -21,7 +23,7 @@ grave marked by a soul lantern, and a map leads you back to them.
 
 ## Install
 
-1. Download `Soulglass_v1.0.0.mcaddon` from
+1. Download `Soulglass_v<version>.mcaddon` from
    [Releases](https://github.com/NullSablex/bedrock-soulglass/releases).
 2. Open the file. The game installs both packs.
 3. In your world, enable **both** the behavior pack and the resource pack.
@@ -71,4 +73,4 @@ players. **Not yet verified:** equipment restore and the translation layer.
 
 ## License
 
-[MIT](LICENSE)
+[MPL-2.0](LICENSE)

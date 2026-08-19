@@ -1,0 +1,36 @@
+# Changelog
+
+All notable changes to this project are documented in this file.
+
+Format inspired by [Keep a Changelog](https://keepachangelog.com/). Versioning follows [Semantic Versioning](https://semver.org/). Older entries live under [`changelog/`](changelog/).
+
+## [1.0.0] — 2026/08/19
+
+First release. Requires Minecraft Bedrock **1.26** (`@minecraft/server` 2.5.0).
+
+Ships as two packs. **Both are required:** the behavior pack runs the logic, the resource pack carries the translation strings. Enabling only the behavior pack leaves every message showing as a raw key such as `soulglass.hud.none`.
+
+### Added
+
+- **Graves on death.** Everything the player carried, including experience, goes into a grave marked by a soul lantern at the place they died. Break it to get it all back; there is nothing to open.
+- **Armor returns worn.** Helmet, chestplate, leggings, boots and offhand go back to the slots they came from, already equipped — and it is the exact piece that was on the body, not another identical one from the backpack. Each piece is matched by a fingerprint of type, count, name, durability, enchantments and lore, so two diamond helmets are told apart by the damage the worn one took.
+- **Experience is preserved and returned as collectable orbs.** `xp.mode` chooses between returning everything (`"full"`, the default) and only what vanilla would have dropped (`"vanilla"`). `deliveryMode` chooses between orbs and crediting the exact amount at once.
+- **A paper map, handed over on respawn.** Holding it shows distance, heading and height difference on the action bar, and draws a trail of particles through the air toward the grave — following the real line, rising and falling with the terrain. A beam marks the grave itself within 64 blocks. Sneaking while holding it lists every grave in chat, nearest first.
+- **Reachable placement.** A grave never appears inside lava or water. The search demands solid ground to stand on, headroom to swing at the marker, and no liquid touching it, expanding in rings from the death point. Dying in the void or mid-ocean builds a support block rather than leaving the grave where nobody can reach it.
+- **Only the owner can open a grave**, and nothing else in the game can destroy one. Explosions have the grave's blocks removed from their affected list, so TNT still goes off and leaves it untouched. Pistons cannot push the marker away from the vault pinned beneath it.
+- **Per-player translation.** Messages are translation keys the client resolves, so two players side by side read the same line each in their own language. English, Português (BR) and Español ship; any other language falls back to English, so nobody ever sees a raw key.
+- **`/scriptevent soulglass:find`** lists the caller's graves. Sneaking with the map does the same thing and needs no cheats.
+- **Documentation site** built with MkDocs Material, split by audience: players, server owners, developers. [`docs/architecture.md`](docs/architecture.md) records the API constraints behind each design decision.
+- **`tools/check.py`** — static analysis covering what can be checked without running the game: imports resolving, config keys existing, translation keys present in every language file, characters that would break the in-game font, JSON validity, and side effects that would throw inside `beforeEvents`.
+- **`build.py`** — produces the release packages on Windows, Linux and macOS alike.
+
+### Notes
+
+- **Nothing happens when `keepInventory` is on.** That rule preserves experience as well as items, so creating a grave would hand back XP the player never lost.
+- **`/kill @e` destroys the vault** and its items are lost. The experience is still returned and the player is told, rather than being handed an empty grave in silence. This is the one fragility a block-based design would not have had; it is the price of an inventory that holds exactly what a player carries and cannot be opened.
+- **The marker must be breakable by hand.** `playerBreakBlock` only fires when the block would actually break, and someone who just died has no pickaxe — it is inside the grave. Changing `markerBlocks` to something like crying obsidian makes graves unrecoverable forever.
+- **Inventory layout is not restored**, only equipment slots. Items come back in the order they sat in the vault.
+- **The map's item name and lore are not translated.** Item text takes plain strings only; the API rejects translation keys there. They come from `config.js` and read the same for everyone.
+- **`xpPerOrb` is an assumption.** The API never exposes an orb's value, so the count is derived rather than measured. Verify it against a known amount and adjust, or switch `deliveryMode` to `"direct"` for exactness.
+
+[1.0.0]: https://github.com/NullSablex/bedrock-soulglass/releases/tag/v1.0.0
