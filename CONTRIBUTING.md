@@ -96,6 +96,16 @@ The workflow verifies the tag matches both manifests, builds the three
 packages, and takes the release body from the changelog section for that
 version.
 
+## AI
+
+AI tools are welcome here, under one rule that matters: **you are responsible
+for what you submit**, and authorship stays human — no `Co-Authored-By:`
+pointing at an assistant. See [AI-POLICY.md](AI-POLICY.md).
+
+The failure mode worth naming: assistants routinely invent Bedrock APIs that do
+not exist, or that existed in 1.21 and were removed by 1.26. Nothing here runs
+JavaScript, so only the game can catch that.
+
 ## Licence
 
 Contributions are licensed under the [MPL-2.0](LICENSE), like the rest of the

@@ -6,6 +6,13 @@ back, and breaking the grave returns everything — armor included.
 
 Only the owner can open a grave, and nothing else in the game can destroy it.
 
+
+!!! info "Not affiliated"
+    This is an independent, community-maintained project. It is **not**
+    affiliated with, endorsed by, sponsored by, or otherwise connected to
+    Mojang Studios, Microsoft, or Minecraft. Those names belong to their
+    respective owners and appear here solely to describe what this add-on is
+    compatible with. It is not distributed through the Minecraft Marketplace.
 ## At a glance
 
 | | |
