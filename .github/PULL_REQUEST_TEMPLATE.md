@@ -9,7 +9,7 @@
 ## Checks
 
 - [ ] `python tools/check.py` passes
-- [ ] `python build.py` produces a package
+- [ ] `python tools/build.py` produces a package
 - [ ] Tested in game, or explicitly not tested
 
 ## If it touches player-facing text

@@ -9,7 +9,7 @@ bundler — the add-on ships the JavaScript the game runs.
 git clone https://github.com/NullSablex/bedrock-soulglass
 cd bedrock-soulglass
 python tools/check.py     # static analysis
-python build.py           # writes dist/
+python tools/build.py           # writes dist/
 ```
 
 To test in game, junction the packs into the game's development folders so it
@@ -24,7 +24,7 @@ Without it a script error is invisible and you will chase a ghost.
 
 ```bash
 python tools/check.py
-python build.py
+python tools/build.py
 ```
 
 Both run in CI, so a failure there is a failure here. `check.py` covers imports

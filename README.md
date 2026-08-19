@@ -79,7 +79,7 @@ search radius, XP behaviour, protection, particles. See
 
 ```bash
 python tools/check.py     # static checks
-python build.py --all     # writes the three release packages
+python tools/build.py --all     # writes the three release packages
 ```
 
 Source language is **en-US**: comments, identifiers, the base `.lang` file.

@@ -38,10 +38,11 @@ jobs:
           cache: pip
           cache-dependency-path: requirements-docs.txt
 
-      # Versions are pinned in requirements-docs.txt so the site built today
-      # and the one built in a year come out the same.
-      - name: Install pinned docs toolchain
-        run: pip install -r requirements-docs.txt
+      # requirements-docs.txt is a lockfile with hashes, generated from
+      # requirements-docs.in by pip-compile. pip verifies every hash, so a
+      # tampered or substituted package fails the build instead of shipping.
+      - name: Install locked docs toolchain
+        run: pip install --require-hashes -r requirements-docs.txt
 
       # --strict turns a broken internal link into a failed build.
       - name: Build site

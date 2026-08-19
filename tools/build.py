@@ -30,7 +30,7 @@ import sys
 import zipfile
 from pathlib import Path
 
-ROOT = Path(__file__).parent
+ROOT = Path(__file__).parent.parent
 DIST = ROOT / "dist"
 ADDON = "Soulglass"
 

@@ -9,7 +9,7 @@ bundler.
 
 ```bash
 python tools/check.py     # static analysis
-python build.py           # writes dist/Soulglass_v<version>.mcaddon
+python tools/build.py           # writes dist/Soulglass_v<version>.mcaddon
 ```
 
 Both behave identically on Windows, Linux and macOS.
@@ -49,7 +49,7 @@ split it.
 
 ## Build output
 
-`build.py` produces a single `.mcaddon`: a ZIP holding both packs, each in its
+`tools/build.py` produces a single `.mcaddon`: a ZIP holding both packs, each in its
 own top-level folder.
 
 Entry names use forward slashes deliberately. PowerShell's `Compress-Archive`
@@ -80,7 +80,7 @@ Cases worth testing specifically:
 
 1. Bump `version` in both manifests.
 2. `python tools/check.py`
-3. `python build.py`
+3. `python tools/build.py`
 4. Tag and attach the `.mcaddon` to a GitHub release.
 
 Both manifests carry their own version; the build reads the behavior pack's.
