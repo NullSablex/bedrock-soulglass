@@ -1,25 +1,25 @@
-# Using the map
+# Using the guide
 
 ## When you die
 
-Your items and experience go into a grave at the place you died, marked by a
-**soul lantern**. If that spot is unusable — lava, deep water, the void — the
-grave moves to the nearest place you can actually stand.
+Your items and experience go into a **soul lantern**, lit at the place you
+died. If that spot is unusable — lava, deep water, the void — the
+lantern moves to the nearest place you can actually stand.
 
 You keep nothing, but you lose nothing either.
 
 ## Finding your way back
 
-You receive a **Grave Map** when you respawn. Hold it and the action bar shows:
+You receive a **Lantern Map** when you respawn. Hold it and the action bar shows:
 
 ```
-Grave  143 blocks - ahead and right - 12 up
+Lantern  143 blocks - ahead and right - 12 up
 ```
 
-A trail of light also points from you toward the grave, rising and falling with
+A trail of light also points from you toward the lantern, rising and falling with
 the terrain — follow it and you arrive.
 
-Within two blocks the reading changes to **Your grave is right here**.
+Within two blocks the reading changes to **Your lantern is right here**.
 
 ## Recovering
 
@@ -31,25 +31,37 @@ Within two blocks the reading changes to **Your grave is right here**.
 
 Anything that does not fit falls at your feet.
 
-## Several graves at once
+## Several lanterns at once
 
-Dying again before recovering the first grave is fine — both stay, indefinitely.
+Dying again before recovering the first lantern is fine — both stay, indefinitely.
 Nothing expires and nothing is overwritten.
 
-The map always points at the **nearest** grave in your current dimension. To see
-all of them, **sneak while holding the map**:
+The guide always points at the **nearest** lantern. To see the rest, **sneak while
+holding it**:
 
 ```
-Your 2 graves, nearest first:
-  - 20 103 54 - 14 blocks +37 xp
-  - 13 99 55 - Nether
+Your 2 soul lanterns:
+  - 20 103 54  - 14 blocks
+  - 13 99 55   - 210 blocks
 ```
 
-The map disappears from your inventory once you have collected everything.
+**Only the world you are standing in is listed.** A lantern in the Nether is
+unreachable from the Overworld without a portal, and its coordinates mean a
+different place here — listing it would be noise at best and misleading at
+worst.
+
+If nothing is lit where you are but something is lit elsewhere, you are told
+that instead, so an empty list never reads as "your loot is gone":
+
+```
+[Soulglass] No soul lantern in this dimension (1 elsewhere)
+```
+
+The guide disappears from your inventory once you have collected everything.
 
 ## Other players
 
-They cannot break your grave, and they cannot read your map — picking one up
-shows *their* graves, not yours.
+They cannot break your lantern, and they cannot read your guide — picking one up
+shows *their* lanterns, not yours.
 
-Explosions and pistons leave graves alone entirely.
+Explosions and pistons leave lanterns alone entirely.

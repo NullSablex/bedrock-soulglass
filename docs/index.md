@@ -1,10 +1,12 @@
 # Soulglass
 
 Death add-on for **Minecraft Bedrock 1.26**. When you die, your items and
-experience stay behind in a grave marked by a soul lantern. A map guides you
-back, and breaking the grave returns everything — armor included.
+experience stay behind in a soul lantern, lit where you died. A guide leads you
+back, and breaking the lantern returns everything — armor included.
 
-Only the owner can open a grave, and nothing else in the game can destroy it.
+Only the owner can open a lantern, and nothing else in the game can destroy it.
+
+[What it does in full →](features.md)
 
 
 !!! info "Not affiliated"
@@ -19,13 +21,14 @@ Only the owner can open a grave, and nothing else in the game can destroy it.
 |---|---|
 | **Game version** | Bedrock 1.26 (`@minecraft/server` 2.5.0) |
 | **Packs** | Behavior + Resource — both required |
-| **Languages** | English, Português (BR), Español |
-| **Multiplayer** | Yes; each player sees only their own graves |
-| **License** | MIT |
+| **Languages** | 11, English as the base |
+| **Multiplayer** | Yes; each player sees only their own lanterns |
+| **License** | MPL-2.0 |
 
 ## Where to go next
 
-- **Playing on a world with it installed?** → [Using the map](map.md)
+- **New here?** → [What it does](features.md)
+- **Playing on a world with it installed?** → [Using the guide](guide.md)
 - **Installing it?** → [Installation](installation.md)
 - **Running a server?** → [Configuration](configuration.md)
 - **Translating it?** → [Languages](languages.md)

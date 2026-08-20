@@ -73,8 +73,8 @@ Cases worth testing specifically:
   must be the one that returns.
 - Dying twice before recovering anything.
 - Dying in lava, in deep ocean, and in the void.
-- `keepInventory` on: no grave at all, and experience untouched.
-- Handing your map to another player: it must show *their* graves, not yours.
+- `keepInventory` on: no lantern at all, and experience untouched.
+- Handing your guide to another player: it must show *their* lanterns, not yours.
 
 ## Releasing
 

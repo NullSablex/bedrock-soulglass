@@ -23,7 +23,9 @@ theme:
         icon: material/weather-sunny
         name: Light mode
   features:
-    - navigation.instant
+    # navigation.instant is deliberately absent: it breaks the i18n language
+    # switcher, and being able to change language matters more here than
+    # shaving a page load.
     - navigation.sections
     - navigation.top
     - content.code.copy
@@ -32,14 +34,80 @@ theme:
 nav:
   - Home: index.md
   - For players:
+      - What it does: features.md
       - Installation: installation.md
-      - Using the map: map.md
+      - Using the guide: guide.md
   - For server owners:
       - Configuration: configuration.md
       - Languages: languages.md
   - For developers:
       - Architecture: architecture.md
       - Development: development.md
+
+# Notes for contributors that live next to what they describe, but are not
+# pages of the site.
+exclude_docs: |
+  img/README.md
+
+plugins:
+  # `search` is on by default, but naming any plugin replaces the default list,
+  # so it has to be repeated here or the site loses its search box.
+  - search
+
+  # Click a screenshot to open it full size. Minecraft captures are unreadable
+  # at body width, and the action bar text especially so.
+  - glightbox:
+      touchNavigation: true
+      loop: false
+      zoomable: true
+      draggable: true
+
+  # Link preview cards, rendered at build time. This is what shows up when the
+  # site is pasted into Discord or a chat app.
+  - social:
+      # Cards need cairo, a system C library that is a package manager away on
+      # Linux and a yak shave on Windows. CI installs it and sets CI=true, so
+      # cards are rendered where they are published and skipped where someone
+      # is just previewing a page locally.
+      enabled: !ENV [CI, false]
+      cards_layout_options:
+        background_color: "#5e35b1"
+
+  # Translated documentation.
+  #
+  # `suffix` structure: docs/index.md is English, docs/index.pt-BR.md is its
+  # Brazilian Portuguese version. A page with no translation falls back to the
+  # English one rather than 404ing, so a language can be added one page at a
+  # time instead of all at once.
+  #
+  # This lists only the languages the DOCUMENTATION has, which is not the same
+  # set as the 11 the add-on speaks in game: those are translation keys a
+  # contributor can finish in one sitting, while a page here is prose that has
+  # to be maintained. Adding a language means adding it below and translating
+  # what you can.
+  - i18n:
+      docs_structure: suffix
+      fallback_to_default: true
+      languages:
+        - locale: en
+          name: English
+          default: true
+          build: true
+        - locale: pt-BR
+          name: Português (Brasil)
+          build: true
+          nav_translations:
+            Home: Início
+            For players: Para jogadores
+            What it does: O que ele faz
+            Installation: Instalação
+            Using the guide: Usando o guia
+            For server owners: Para donos de servidor
+            Configuration: Configuração
+            Languages: Idiomas
+            For developers: Para desenvolvedores
+            Architecture: Arquitetura
+            Development: Desenvolvimento
 
 markdown_extensions:
   - admonition

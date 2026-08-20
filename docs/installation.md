@@ -77,4 +77,4 @@ itself in the log instead of silently killing the add-on.
 **Messages show as raw keys.** The resource pack is not active.
 
 **`/scriptevent` says the command does not exist.** Cheats are disabled in that
-world. Sneaking while holding the map does the same job without cheats.
+world. Sneaking while holding the guide does the same job without cheats.
