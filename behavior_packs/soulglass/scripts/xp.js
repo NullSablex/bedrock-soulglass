@@ -77,7 +77,7 @@ export function clearDroppedOrbs(dimension, origin) {
     const orbs = dimension.getEntities({
       type: "minecraft:xp_orb",
       location: origin,
-      maxDistance: CONFIG.pickupRadius,
+      maxDistance: CONFIG.xp.orbRadius,
     });
     for (const orb of orbs) {
       try { orb.remove(); } catch { /* already gone */ }
@@ -143,5 +143,10 @@ export function grantXp(player, amount, dimension, location) {
     grantDirect(player, amount);
   }
 
-  player.sendMessage(t("soulglass.xp.recovered", amount));
+  // No message by default. Orbs flying in and the experience bar filling say
+  // it louder than a line of chat, and the amount was already announced when
+  // the grave was created.
+  if (CONFIG.messages.onRecovery) {
+    player.sendMessage(t("soulglass.xp.recovered", amount));
+  }
 }

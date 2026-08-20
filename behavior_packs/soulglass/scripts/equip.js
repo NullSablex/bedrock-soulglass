@@ -44,7 +44,7 @@ function equippable(entity) {
  * The item's identity. It has to include everything that tells two pieces of
  * the same type apart, or the wrong one goes back on the body.
  */
-export function fingerprint(stack) {
+function fingerprint(stack) {
   if (!stack) return undefined;
   const parts = [stack.typeId, String(stack.amount), stack.nameTag ?? ""];
 

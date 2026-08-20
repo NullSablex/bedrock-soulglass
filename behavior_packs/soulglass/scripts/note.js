@@ -4,7 +4,7 @@ import { gravesOf } from "./storage.js";
 import { byDistance } from "./distance.js";
 
 /**
- * The grave map: a sheet of paper carrying the coordinates.
+ * The soul guide: a sheet of paper carrying the coordinates.
  *
  * Why paper and not a compass. A plain compass points its needle at world
  * spawn, and a recovery compass only works in the dimension where the death
@@ -125,7 +125,7 @@ export function giveNote(player) {
     const leftover = inventory.addItem(stack);
     if (leftover) player.dimension.spawnItem(leftover, player.location);
   } catch (e) {
-    console.warn(`[Soulglass] failed to hand over the map: ${e}`);
+    console.warn(`[Soulglass] failed to hand over the guide: ${e}`);
   }
 }
 
