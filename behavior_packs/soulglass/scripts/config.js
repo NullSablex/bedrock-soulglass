@@ -53,6 +53,66 @@ export const CONFIG = {
   },
 
   /**
+   * The menu the guide opens, and the only place an author can be named.
+   *
+   * Bedrock gives an add-on nowhere to put credits: no about screen, a pack
+   * description nobody opens, and item names that are plain strings shared by
+   * every language. A form is the one surface in the game where this can be
+   * read.
+   */
+  menu: {
+    enabled: true,
+
+    /**
+     * Button icons, as texture paths.
+     *
+     * Vanilla paths on purpose: the add-on ships no art, and a path that comes
+     * with the game needs no resource pack of its own. A path the game does
+     * not have renders as a blank square rather than failing, so a wrong guess
+     * costs an icon and nothing else — which is also why these are here to be
+     * corrected rather than buried in the code.
+     *
+     * Set any of them to undefined for a button with no icon.
+     */
+    icons: {
+      lanterns: "textures/blocks/soul_lantern",
+      chat: "textures/ui/chat_send",
+      credits: "textures/ui/infobulb",
+      link: "textures/ui/copy",
+      back: "textures/ui/arrow_left",
+    },
+    /**
+     * A form refuses to open while the player is holding a key, and reports it
+     * as a cancellation rather than an error. Sneaking is the gesture that
+     * asks for the menu, so that state is the norm rather than the exception:
+     * it waits for the key to come up instead of failing silently.
+     */
+    retries: 10,
+    retryTicks: 5,
+  },
+
+  /**
+   * Shown on the credits screen. Plain values, not translation keys: a name is
+   * a name in every language, and a version number is a version number.
+   */
+  credits: {
+    name: "Soulglass",
+    author: "NullSablex",
+    version: "1.0.0",
+    license: "MPL-2.0",
+    /**
+     * Two forms of the same address, because two surfaces have two widths.
+     *
+     * A form body wraps mid-word and inserts a hyphen doing it, which turned
+     * "bedrock-soulglass" into "bedrock-soulg-lass" on screen — an address
+     * that reads as real and is not. `repo` fits the width, so it never wraps.
+     * Chat is wider and can be copied from, so it gets the whole thing.
+     */
+    repo: "NullSablex/bedrock-soulglass",
+    url: "https://github.com/NullSablex/bedrock-soulglass",
+  },
+
+  /**
    * The soul guide, handed over on respawn.
    *
    * It is a sheet of paper rather than a compass, and the reason is the needle:
@@ -77,7 +137,7 @@ export const CONFIG = {
       "minecraft:paper",
       "minecraft:book",
     ],
-    itemName: "§6Soul Guide",
+    itemName: "§bSoul Guide",
     loreHeader: "§7Scrawled in a hurry.",
     loreFooter: "§7Hold it to find your soul lantern",
     loreBlank: "§8A blank sheet.",
@@ -249,6 +309,21 @@ export const CONFIG = {
      * described above; there is no good reason to.
      */
     support: true,
+
+    /**
+     * Put the vault back when something removes the entity.
+     *
+     * `/kill @e` is the case that matters. The vault refuses all damage, but
+     * `/kill` does not deal damage — it removes the entity, and no component
+     * setting prevents that. The command is usually typed to clear dropped
+     * items or mobs, and emptying somebody's lantern is collateral the person
+     * typing it never intended.
+     *
+     * So the loss is undone rather than prevented: the contents are read while
+     * the entity still exists, and a replacement vault is filled with them on
+     * the next tick.
+     */
+    rescueVault: true,
 
     /**
      * Blocks that fall when what holds them up is removed.

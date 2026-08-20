@@ -4,7 +4,9 @@ import { subscribeSafe } from "./safe.js";
 import { lanternsOf } from "./storage.js";
 import { hintActive } from "./hud.js";
 import { isNote, holdingNote, refreshNote } from "./note.js";
-import { distanceTo, byDistance, nearestLantern } from "./distance.js";
+import { showMenu } from "./menu.js";
+import { listLanterns } from "./chat.js";
+import { nearestLantern } from "./distance.js";
 import { t, tn, join, raw } from "./msg.js";
 
 /**
@@ -98,52 +100,6 @@ function drawBeacon(player, lantern, distance) {
   }
 }
 
-/**
- * Where the lantern is and how far away it is. Nothing else.
- *
- * The experience it holds used to be on this line. It answered a question
- * nobody asks: the amount changes no decision, because every lantern is worth
- * walking to and the XP comes back either way.
- */
-function lanternLine(player, lantern) {
-  return join(
-    raw(`  §8- §f${lantern.x} ${lantern.y} ${lantern.z}  §8- §f`),
-    tn(Math.round(distanceTo(player, lantern)), "soulglass.blocks.one", "soulglass.blocks.many")
-  );
-}
-
-/**
- * Lists only the lanterns in the dimension the player is standing in.
- *
- * Anything elsewhere is unreachable from here without a portal, so listing it
- * is noise — coordinates the player cannot act on, and worse, coordinates that
- * mean a different place in the world they are in.
- *
- * When nothing is lit here but something is lit elsewhere, that is worth one
- * line: otherwise the player reads "you have none" and concludes their loot is
- * gone.
- */
-export function listLanterns(player) {
-  const here = lanternsHere(player);
-  if (here.length === 0) {
-    const elsewhere = lanternsOf(player.id).length;
-    player.sendMessage(
-      elsewhere > 0
-        ? tn(elsewhere, "soulglass.list.elsewhere.one", "soulglass.list.elsewhere.many")
-        : t("soulglass.list.none")
-    );
-    return;
-  }
-
-  player.sendMessage(
-    here.length === 1 ? t("soulglass.list.one") : t("soulglass.list.many", here.length)
-  );
-
-  for (const lantern of byDistance(player, here)) {
-    player.sendMessage(lanternLine(player, lantern));
-  }
-}
-
 function statusFor(player) {
   const near = nearestLantern(player, lanternsHere(player));
   if (near) return actionBarLine(player, near);
@@ -152,6 +108,20 @@ function statusFor(player) {
   return elsewhere > 0
     ? tn(elsewhere, "soulglass.hud.other_dimension.one", "soulglass.hud.other_dimension.many")
     : t("soulglass.hud.none");
+}
+
+/**
+ * The menu, or the chat when the menu is turned off.
+ *
+ * A static import on purpose. Dynamic import would degrade more gracefully on
+ * a version without @minecraft/server-ui, but it is not a feature of this
+ * script engine that can be relied on, and the module is a declared manifest
+ * dependency exactly like @minecraft/server. showMenu falls back to chat on
+ * its own if a form cannot be shown.
+ */
+function open(player) {
+  if (CONFIG.menu.enabled) showMenu(player);
+  else listLanterns(player);
 }
 
 export function registerGuide() {
@@ -185,18 +155,18 @@ export function registerGuide() {
       }
 
       /*
-       * Sneaking lists everything in chat. Paper has no use action of its own,
-       * so `itemUse` may never fire for it — unlike a compass. This trigger
+       * Sneaking opens the menu. Paper has no use action of its own, so
+       * `itemUse` may never fire for it — unlike a compass. This trigger
        * depends on no item event at all, which makes it the reliable path.
        */
       const before = wasSneaking.get(player.id) === true;
       const now = player.isSneaking === true;
       wasSneaking.set(player.id, now);
-      if (now && !before) listLanterns(player);
+      if (now && !before) open(player);
     }
   }, CONFIG.note.refreshTicks);
 
   subscribeSafe(world.afterEvents, "itemUse", (ev) => {
-    if (isNote(ev.itemStack)) listLanterns(ev.source);
+    if (isNote(ev.itemStack)) open(ev.source);
   });
 }
