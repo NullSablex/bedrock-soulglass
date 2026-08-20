@@ -45,6 +45,31 @@ export function fallsWhenUnsupported(block) {
   return cfg.gravitySuffixes.some((suffix) => id.endsWith(suffix));
 }
 
+/**
+ * Does this block do something of its own when right-clicked?
+ *
+ * If it does, the click belongs to it and not to whatever is in hand: opening
+ * a chest does not use the item you are holding, and a menu appearing over the
+ * chest is the add-on talking over the game.
+ *
+ * Containers answer for themselves through their inventory component, which
+ * covers chests, barrels, furnaces, hoppers and every modded box nobody can
+ * enumerate. The rest is the configured list — doors, workstations, beds, the
+ * things that react while holding nothing.
+ */
+export function isInteractive(block) {
+  if (!block) return false;
+
+  try {
+    if (block.getComponent("minecraft:inventory")) return true;
+  } catch { /* no such component in this version */ }
+
+  const id = block.typeId;
+  const cfg = CONFIG.note;
+  if (cfg.interactiveBlocks.includes(id)) return true;
+  return cfg.interactiveSuffixes.some((suffix) => id.endsWith(suffix));
+}
+
 export function above(location) {
   return { x: location.x, y: location.y + 1, z: location.z };
 }

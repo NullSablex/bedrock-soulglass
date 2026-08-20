@@ -229,3 +229,31 @@ relies on any of the above:
     been confirmed on 1.26 by running it. If it turns out not to hold, the
     fallback is the behaviour that shipped before: experience comes back, the
     items do not, and the owner is told.
+
+## When the block wins the click
+
+The menu opens on use, and a right-click reaches the add-on two ways: as
+`itemUse` when it lands on air, and as an interaction when it lands on a block.
+The second one arrives even when the block handled the click itself — opening a
+chest does not use what is in your hand, but the game reports the interaction
+regardless.
+
+Left alone, that meant the menu appeared over every container, door and
+workbench touched while carrying the guide. So the block gets first refusal.
+
+| Option | Default | |
+|---|---|---|
+| `note.interactiveBlocks` | crafting table, lever, bell… | Blocks whose own action wins |
+| `note.interactiveSuffixes` | `_door`, `_button`, `_bed`… | Families with one id per material |
+| `note.openCooldown` | `10` | Ticks before the menu may open again |
+
+Containers need no entry: they are recognised by their inventory component,
+which covers chests, barrels, furnaces, hoppers and anything another add-on
+introduces. The lists are for blocks that react while holding nothing — doors,
+buttons, workstations, beds.
+
+A soul lantern is excluded too. It answers a click with the hint saying to
+break it, and that is its own action.
+
+If some block still opens the menu when it should not, add its id to
+`interactiveBlocks`, or its family to `interactiveSuffixes` — no code change.
