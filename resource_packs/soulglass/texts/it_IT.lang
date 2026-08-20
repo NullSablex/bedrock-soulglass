@@ -1,0 +1,51 @@
+## Soulglass — italiano.
+## Base: en_US.lang. Una chiave mancante ricade sull'inglese.
+
+pack.name=Soulglass
+pack.description=I tuoi oggetti e la tua esperienza ti aspettano in una lanterna delle anime, dove sei morto.
+
+## Chat -------------------------------------------------------------------
+soulglass.marked=§8[§6Soulglass§8] §7La tua lanterna delle anime arde dove sei morto.
+soulglass.overflow.one=§8[§6Soulglass§8] §c1 oggetto non ci stava ed è rimasto a terra.
+soulglass.overflow.many=§8[§6Soulglass§8] §c%s oggetti non ci stavano e sono rimasti a terra.
+soulglass.lost=§8[§6Soulglass§8] §cGli oggetti di questa lanterna delle anime sono perduti.
+soulglass.recovered.one=§8[§6Soulglass§8] §7Hai recuperato §f1 oggetto§7.
+soulglass.recovered.many=§8[§6Soulglass§8] §7Hai recuperato §f%s oggetti§7.
+soulglass.recovered.none=§8[§6Soulglass§8] §7Non era rimasto nulla da recuperare.
+soulglass.equipped.one=§8[§6Soulglass§8] §f1 pezzo §7è tornato al suo posto.
+soulglass.equipped.many=§8[§6Soulglass§8] §f%s pezzi §7sono tornati al loro posto.
+soulglass.dropped.one=§8[§6Soulglass§8] §71 oggetto è caduto a terra, il tuo zaino è pieno.
+soulglass.dropped.many=§8[§6Soulglass§8] §7%s oggetti sono caduti a terra, il tuo zaino è pieno.
+soulglass.xp.recovered=§8[§6Soulglass§8] §7+§a%s §7di esperienza recuperata.
+
+## Elenco ------------------------------------------------------------------
+soulglass.list.none=§8[§6Soulglass§8] §7Non hai nessuna lanterna delle anime accesa.
+soulglass.list.elsewhere.one=§8[§6Soulglass§8] §7Nessuna lanterna delle anime in questa dimensione §8(1 altrove)
+soulglass.list.elsewhere.many=§8[§6Soulglass§8] §7Nessuna lanterna delle anime in questa dimensione §8(%s altrove)
+soulglass.list.one=§8[§6Soulglass§8] §7La tua lanterna delle anime:
+soulglass.list.many=§8[§6Soulglass§8] §7Le tue %s lanterne delle anime:
+
+## Barra delle azioni ------------------------------------------------------
+soulglass.hud.arrived=§aLa tua lanterna delle anime è proprio qui
+soulglass.hud.prefix=§6Lanterna delle anime  §f
+soulglass.hud.above=§8 - §7%s sopra
+soulglass.hud.below=§8 - §7%s sotto
+soulglass.hud.other_dimension.one=§8Nessuna lanterna delle anime in questa dimensione §7(1 altrove)
+soulglass.hud.other_dimension.many=§8Nessuna lanterna delle anime in questa dimensione §7(%s altrove)
+soulglass.hud.none=§8Non hai nessuna lanterna delle anime accesa
+soulglass.hint.break=§eRompi la lanterna delle anime per recuperare i tuoi oggetti
+soulglass.hint.owner=§cQuesta lanterna delle anime è di %s
+
+## Unità -------------------------------------------------------------------
+soulglass.blocks.one=1 blocco
+soulglass.blocks.many=%s blocchi
+
+## Direzioni, relative a dove guarda il giocatore --------------------------
+soulglass.dir.0=dritto davanti
+soulglass.dir.1=avanti a destra
+soulglass.dir.2=alla tua destra
+soulglass.dir.3=dietro, a destra
+soulglass.dir.4=dietro di te
+soulglass.dir.5=dietro, a sinistra
+soulglass.dir.6=alla tua sinistra
+soulglass.dir.7=avanti a sinistra

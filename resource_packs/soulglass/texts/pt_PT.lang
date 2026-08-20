@@ -1,0 +1,55 @@
+## Soulglass — português europeu.
+## Base: en_US.lang. Uma chave em falta recorre ao inglês.
+##
+## Existe separado do pt_BR porque o jogo não recorre de uma variante para a
+## outra: sem este ficheiro, quem joga em pt_PT lia tudo em inglês. A diferença
+## está sobretudo no tratamento, aqui na segunda pessoa.
+
+pack.name=Soulglass
+pack.description=Os teus itens e a tua experiência esperam por ti numa lanterna das almas, onde morreste.
+
+## Chat -------------------------------------------------------------------
+soulglass.marked=§8[§6Soulglass§8] §7A tua lanterna das almas foi acesa onde morreste.
+soulglass.overflow.one=§8[§6Soulglass§8] §c1 item não coube e ficou no chão.
+soulglass.overflow.many=§8[§6Soulglass§8] §c%s itens não couberam e ficaram no chão.
+soulglass.lost=§8[§6Soulglass§8] §cOs itens desta lanterna das almas perderam-se.
+soulglass.recovered.one=§8[§6Soulglass§8] §7Recuperaste §f1 item§7.
+soulglass.recovered.many=§8[§6Soulglass§8] §7Recuperaste §f%s itens§7.
+soulglass.recovered.none=§8[§6Soulglass§8] §7Não sobrou nada para recuperar.
+soulglass.equipped.one=§8[§6Soulglass§8] §f1 peça §7voltou ao corpo.
+soulglass.equipped.many=§8[§6Soulglass§8] §f%s peças §7voltaram ao corpo.
+soulglass.dropped.one=§8[§6Soulglass§8] §71 item caiu no chão, a tua mochila está cheia.
+soulglass.dropped.many=§8[§6Soulglass§8] §7%s itens caíram no chão, a tua mochila está cheia.
+soulglass.xp.recovered=§8[§6Soulglass§8] §7+§a%s §7de experiência recuperada.
+
+## Lista de lanternas das almas ---------------------------------------------
+soulglass.list.none=§8[§6Soulglass§8] §7Não tens nenhuma lanterna das almas acesa.
+soulglass.list.elsewhere.one=§8[§6Soulglass§8] §7Nenhuma lanterna das almas nesta dimensão §8(1 noutra)
+soulglass.list.elsewhere.many=§8[§6Soulglass§8] §7Nenhuma lanterna das almas nesta dimensão §8(%s noutras)
+soulglass.list.one=§8[§6Soulglass§8] §7A tua lanterna das almas:
+soulglass.list.many=§8[§6Soulglass§8] §7As tuas %s lanternas das almas:
+
+## Barra de ação ------------------------------------------------------------
+soulglass.hud.arrived=§aA tua lanterna das almas está mesmo aqui
+soulglass.hud.prefix=§6Lanterna das almas  §f
+soulglass.hud.above=§8 - §7%s acima
+soulglass.hud.below=§8 - §7%s abaixo
+soulglass.hud.other_dimension.one=§8Nenhuma lanterna das almas nesta dimensão §7(1 noutra)
+soulglass.hud.other_dimension.many=§8Nenhuma lanterna das almas nesta dimensão §7(%s noutras)
+soulglass.hud.none=§8Não tens lanternas das almas acesas
+soulglass.hint.break=§ePartir a lanterna das almas devolve-te os itens
+soulglass.hint.owner=§cEsta lanterna das almas é de %s
+
+## Unidades -----------------------------------------------------------------
+soulglass.blocks.one=1 bloco
+soulglass.blocks.many=%s blocos
+
+## Direções, relativas a para onde o jogador está a olhar -------------------
+soulglass.dir.0=em frente
+soulglass.dir.1=à frente-direita
+soulglass.dir.2=à tua direita
+soulglass.dir.3=atrás, pela direita
+soulglass.dir.4=atrás de ti
+soulglass.dir.5=atrás, pela esquerda
+soulglass.dir.6=à tua esquerda
+soulglass.dir.7=à frente-esquerda

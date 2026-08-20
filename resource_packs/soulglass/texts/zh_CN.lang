@@ -1,0 +1,51 @@
+## Soulglass — 简体中文。
+## 基准：en_US.lang。缺失的键会回退到英文。
+
+pack.name=Soulglass
+pack.description=你的物品和经验会留在你死去之处的灵魂灯笼里。
+
+## 聊天 --------------------------------------------------------------------
+soulglass.marked=§8[§6Soulglass§8] §7你的灵魂灯笼已在你死去之处点亮。
+soulglass.overflow.one=§8[§6Soulglass§8] §c有 1 件物品放不下，留在了地上。
+soulglass.overflow.many=§8[§6Soulglass§8] §c有 %s 件物品放不下，留在了地上。
+soulglass.lost=§8[§6Soulglass§8] §c这盏灵魂灯笼里的物品已经丢失。
+soulglass.recovered.one=§8[§6Soulglass§8] §7你取回了 §f1 件物品§7。
+soulglass.recovered.many=§8[§6Soulglass§8] §7你取回了 §f%s 件物品§7。
+soulglass.recovered.none=§8[§6Soulglass§8] §7没有东西可以取回。
+soulglass.equipped.one=§8[§6Soulglass§8] §f1 件装备 §7已重新穿上。
+soulglass.equipped.many=§8[§6Soulglass§8] §f%s 件装备 §7已重新穿上。
+soulglass.dropped.one=§8[§6Soulglass§8] §7有 1 件物品掉在地上，你的背包满了。
+soulglass.dropped.many=§8[§6Soulglass§8] §7有 %s 件物品掉在地上，你的背包满了。
+soulglass.xp.recovered=§8[§6Soulglass§8] §7已取回 §a%s §7点经验。
+
+## 列表 --------------------------------------------------------------------
+soulglass.list.none=§8[§6Soulglass§8] §7你没有点亮的灵魂灯笼。
+soulglass.list.elsewhere.one=§8[§6Soulglass§8] §7这个维度没有灵魂灯笼 §8(1 盏在别处)
+soulglass.list.elsewhere.many=§8[§6Soulglass§8] §7这个维度没有灵魂灯笼 §8(%s 盏在别处)
+soulglass.list.one=§8[§6Soulglass§8] §7你的灵魂灯笼：
+soulglass.list.many=§8[§6Soulglass§8] §7你的 %s 盏灵魂灯笼：
+
+## 快捷栏上方提示 ----------------------------------------------------------
+soulglass.hud.arrived=§a你的灵魂灯笼就在这里
+soulglass.hud.prefix=§6灵魂灯笼  §f
+soulglass.hud.above=§8 - §7上方 %s
+soulglass.hud.below=§8 - §7下方 %s
+soulglass.hud.other_dimension.one=§8这个维度没有灵魂灯笼 §7(1 盏在别处)
+soulglass.hud.other_dimension.many=§8这个维度没有灵魂灯笼 §7(%s 盏在别处)
+soulglass.hud.none=§8你没有点亮的灵魂灯笼
+soulglass.hint.break=§e打破灵魂灯笼即可取回物品
+soulglass.hint.owner=§c这盏灵魂灯笼属于 %s
+
+## 单位 --------------------------------------------------------------------
+soulglass.blocks.one=1 格
+soulglass.blocks.many=%s 格
+
+## 方向，相对于玩家视线 ----------------------------------------------------
+soulglass.dir.0=正前方
+soulglass.dir.1=右前方
+soulglass.dir.2=你的右侧
+soulglass.dir.3=右后方
+soulglass.dir.4=你的身后
+soulglass.dir.5=左后方
+soulglass.dir.6=你的左侧
+soulglass.dir.7=左前方

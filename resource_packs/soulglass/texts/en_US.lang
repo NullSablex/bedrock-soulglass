@@ -1,17 +1,19 @@
 ## Soulglass — base language.
 ## Every other file is a translation of this one. Keys missing from a
 ## translation fall back to en_US, so no player ever sees a raw key.
+##
+## The marker is a soul lantern, and that is what it is called throughout —
+## the same name the player reads in their inventory. Calling it a grave
+## described the function instead of the object in front of them.
 
 pack.name=Soulglass
-pack.description=Your items and experience wait for you in a grave where you died.
+pack.description=Your items and experience wait for you in a soul lantern, lit where you died.
 
 ## Chat -------------------------------------------------------------------
-soulglass.marked=§8[§6Soulglass§8] §7Your grave has been marked.
-soulglass.marked.xp=§8[§6Soulglass§8] §7Your grave has been marked, holding §a%s §7experience.
-soulglass.use_map=§8[§6Soulglass§8] §7Use the §6map §7to find your way back.
+soulglass.marked=§8[§6Soulglass§8] §7Your soul lantern is lit where you died.
 soulglass.overflow.one=§8[§6Soulglass§8] §c1 item did not fit and was left on the ground.
 soulglass.overflow.many=§8[§6Soulglass§8] §c%s items did not fit and were left on the ground.
-soulglass.lost=§8[§6Soulglass§8] §cThe items in this grave were lost.
+soulglass.lost=§8[§6Soulglass§8] §cThe items in this soul lantern were lost.
 soulglass.recovered.one=§8[§6Soulglass§8] §7You recovered §f1 item§7.
 soulglass.recovered.many=§8[§6Soulglass§8] §7You recovered §f%s items§7.
 soulglass.recovered.none=§8[§6Soulglass§8] §7There was nothing left to recover.
@@ -21,23 +23,23 @@ soulglass.dropped.one=§8[§6Soulglass§8] §71 item fell to the ground, your ba
 soulglass.dropped.many=§8[§6Soulglass§8] §7%s items fell to the ground, your bag is full.
 soulglass.xp.recovered=§8[§6Soulglass§8] §7+§a%s §7experience recovered.
 
-## Grave list --------------------------------------------------------------
-soulglass.list.none=§8[§6Soulglass§8] §7You have no graves.
-soulglass.list.one=§8[§6Soulglass§8] §7Your grave:
-soulglass.list.many=§8[§6Soulglass§8] §7Your %s graves, nearest first:
-soulglass.list.entry=  §8- §f%s %s %s §8- §f%s
-soulglass.list.entry.far=  §8- §f%s %s %s §8%s
-soulglass.list.xp=§8 +%s xp
+## Soul lantern list -------------------------------------------------------------
+soulglass.list.none=§8[§6Soulglass§8] §7You have no soul lanterns lit.
+soulglass.list.elsewhere.one=§8[§6Soulglass§8] §7No soul lantern in this dimension §8(1 elsewhere)
+soulglass.list.elsewhere.many=§8[§6Soulglass§8] §7No soul lantern in this dimension §8(%s elsewhere)
+soulglass.list.one=§8[§6Soulglass§8] §7Your soul lantern:
+soulglass.list.many=§8[§6Soulglass§8] §7Your %s soul lanterns:
 
 ## Action bar ---------------------------------------------------------------
-soulglass.hud.arrived=§aYour grave is right here
-soulglass.hud.prefix=§6Grave  §f
+soulglass.hud.arrived=§aYour soul lantern is right here
+soulglass.hud.prefix=§6Soul lantern  §f
 soulglass.hud.above=§8 - §7%s up
 soulglass.hud.below=§8 - §7%s down
-soulglass.hud.other_dimension=§8No grave in this dimension §7(%s elsewhere)
-soulglass.hud.none=§8You have no graves
-soulglass.hint.break=§eBreak the grave to recover your items
-soulglass.hint.owner=§cThis grave belongs to %s
+soulglass.hud.other_dimension.one=§8No soul lantern in this dimension §7(1 elsewhere)
+soulglass.hud.other_dimension.many=§8No soul lantern in this dimension §7(%s elsewhere)
+soulglass.hud.none=§8You have no soul lanterns lit
+soulglass.hint.break=§eBreak the soul lantern to recover your items
+soulglass.hint.owner=§cThis soul lantern belongs to %s
 
 ## Units --------------------------------------------------------------------
 soulglass.blocks.one=1 block
@@ -52,8 +54,3 @@ soulglass.dir.4=behind you
 soulglass.dir.5=behind, to the left
 soulglass.dir.6=to your left
 soulglass.dir.7=ahead and left
-
-## Dimensions ---------------------------------------------------------------
-soulglass.dim.overworld=Overworld
-soulglass.dim.nether=Nether
-soulglass.dim.the_end=The End

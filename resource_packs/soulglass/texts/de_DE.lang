@@ -1,0 +1,51 @@
+## Soulglass — Deutsch.
+## Basis: en_US.lang. Fehlende Schlüssel fallen auf Englisch zurück.
+
+pack.name=Soulglass
+pack.description=Deine Gegenstände und deine Erfahrung warten in einer Seelenlaterne dort, wo du gestorben bist.
+
+## Chat -------------------------------------------------------------------
+soulglass.marked=§8[§6Soulglass§8] §7Deine Seelenlaterne brennt dort, wo du gestorben bist.
+soulglass.overflow.one=§8[§6Soulglass§8] §c1 Gegenstand passte nicht hinein und blieb am Boden.
+soulglass.overflow.many=§8[§6Soulglass§8] §c%s Gegenstände passten nicht hinein und blieben am Boden.
+soulglass.lost=§8[§6Soulglass§8] §cDie Gegenstände dieser Seelenlaterne sind verloren.
+soulglass.recovered.one=§8[§6Soulglass§8] §7Du hast §f1 Gegenstand §7zurück.
+soulglass.recovered.many=§8[§6Soulglass§8] §7Du hast §f%s Gegenstände §7zurück.
+soulglass.recovered.none=§8[§6Soulglass§8] §7Es war nichts mehr zu holen.
+soulglass.equipped.one=§8[§6Soulglass§8] §f1 Rüstungsteil §7sitzt wieder.
+soulglass.equipped.many=§8[§6Soulglass§8] §f%s Rüstungsteile §7sitzen wieder.
+soulglass.dropped.one=§8[§6Soulglass§8] §71 Gegenstand fiel zu Boden, dein Inventar ist voll.
+soulglass.dropped.many=§8[§6Soulglass§8] §7%s Gegenstände fielen zu Boden, dein Inventar ist voll.
+soulglass.xp.recovered=§8[§6Soulglass§8] §7+§a%s §7Erfahrung zurück.
+
+## Liste -------------------------------------------------------------------
+soulglass.list.none=§8[§6Soulglass§8] §7Du hast keine brennende Seelenlaterne.
+soulglass.list.elsewhere.one=§8[§6Soulglass§8] §7Keine Seelenlaterne in dieser Dimension §8(1 anderswo)
+soulglass.list.elsewhere.many=§8[§6Soulglass§8] §7Keine Seelenlaterne in dieser Dimension §8(%s anderswo)
+soulglass.list.one=§8[§6Soulglass§8] §7Deine Seelenlaterne:
+soulglass.list.many=§8[§6Soulglass§8] §7Deine %s Seelenlaternen:
+
+## Aktionsleiste -----------------------------------------------------------
+soulglass.hud.arrived=§aDeine Seelenlaterne ist genau hier
+soulglass.hud.prefix=§6Seelenlaterne  §f
+soulglass.hud.above=§8 - §7%s hoch
+soulglass.hud.below=§8 - §7%s tief
+soulglass.hud.other_dimension.one=§8Keine Seelenlaterne in dieser Dimension §7(1 anderswo)
+soulglass.hud.other_dimension.many=§8Keine Seelenlaterne in dieser Dimension §7(%s anderswo)
+soulglass.hud.none=§8Du hast keine brennende Seelenlaterne
+soulglass.hint.break=§eZerschlage die Seelenlaterne, um deine Sachen zu holen
+soulglass.hint.owner=§cDiese Seelenlaterne gehört %s
+
+## Einheiten ---------------------------------------------------------------
+soulglass.blocks.one=1 Block
+soulglass.blocks.many=%s Blöcke
+
+## Richtungen, relativ zur Blickrichtung -----------------------------------
+soulglass.dir.0=geradeaus
+soulglass.dir.1=vorne rechts
+soulglass.dir.2=rechts von dir
+soulglass.dir.3=hinten rechts
+soulglass.dir.4=hinter dir
+soulglass.dir.5=hinten links
+soulglass.dir.6=links von dir
+soulglass.dir.7=vorne links

@@ -12,7 +12,7 @@
  * packs. That is why this addon stopped being behavior-pack-only.
  *
  * Two things stay out, because of an API limit: item `nameTag` and `setLore`
- * take plain strings, never RawMessage. The map's name and lore use the single
+ * take plain strings, never RawMessage. The guide's name and lore use the single
  * language set in config.js, the same for everyone.
  */
 
@@ -40,21 +40,4 @@ export function join(...parts) {
 /** Literal text, for what is never translated: coordinates, player names. */
 export function raw(text) {
   return { text: String(text) };
-}
-
-/**
- * Dimension name as a key, or undefined for an unknown dimension.
- *
- * Spelled out rather than assembled by concatenation, so every key appears as
- * a literal in the source. That is what lets the static check confirm each one
- * exists in every .lang file — a key built at runtime is invisible to it.
- */
-const DIMENSION_KEYS = {
-  "minecraft:overworld": "soulglass.dim.overworld",
-  "minecraft:nether": "soulglass.dim.nether",
-  "minecraft:the_end": "soulglass.dim.the_end",
-};
-
-export function dimensionKey(dimensionId) {
-  return DIMENSION_KEYS[dimensionId];
 }

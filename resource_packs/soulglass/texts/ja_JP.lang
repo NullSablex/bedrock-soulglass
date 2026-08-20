@@ -1,0 +1,51 @@
+## Soulglass — 日本語。
+## 基準：en_US.lang。欠けているキーは英語にフォールバックします。
+
+pack.name=Soulglass
+pack.description=死んだ場所に灯るソウルランタンに、アイテムと経験値が残ります。
+
+## チャット ----------------------------------------------------------------
+soulglass.marked=§8[§6Soulglass§8] §7死んだ場所にソウルランタンが灯りました。
+soulglass.overflow.one=§8[§6Soulglass§8] §cアイテム 1 個が入りきらず地面に残りました。
+soulglass.overflow.many=§8[§6Soulglass§8] §cアイテム %s 個が入りきらず地面に残りました。
+soulglass.lost=§8[§6Soulglass§8] §cこのソウルランタンの中身は失われました。
+soulglass.recovered.one=§8[§6Soulglass§8] §7アイテム §f1 個 §7を取り戻しました。
+soulglass.recovered.many=§8[§6Soulglass§8] §7アイテム §f%s 個 §7を取り戻しました。
+soulglass.recovered.none=§8[§6Soulglass§8] §7取り戻すものは残っていませんでした。
+soulglass.equipped.one=§8[§6Soulglass§8] §f防具 1 点 §7が元に戻りました。
+soulglass.equipped.many=§8[§6Soulglass§8] §f防具 %s 点 §7が元に戻りました。
+soulglass.dropped.one=§8[§6Soulglass§8] §7持ち物がいっぱいで、アイテム 1 個が地面に落ちました。
+soulglass.dropped.many=§8[§6Soulglass§8] §7持ち物がいっぱいで、アイテム %s 個が地面に落ちました。
+soulglass.xp.recovered=§8[§6Soulglass§8] §7経験値 §a%s §7を取り戻しました。
+
+## 一覧 --------------------------------------------------------------------
+soulglass.list.none=§8[§6Soulglass§8] §7灯っているソウルランタンはありません。
+soulglass.list.elsewhere.one=§8[§6Soulglass§8] §7このディメンションにソウルランタンはありません §8(他に 1 基)
+soulglass.list.elsewhere.many=§8[§6Soulglass§8] §7このディメンションにソウルランタンはありません §8(他に %s 基)
+soulglass.list.one=§8[§6Soulglass§8] §7あなたのソウルランタン：
+soulglass.list.many=§8[§6Soulglass§8] §7あなたのソウルランタン %s 基：
+
+## アクションバー ----------------------------------------------------------
+soulglass.hud.arrived=§aソウルランタンはすぐそこです
+soulglass.hud.prefix=§6ソウルランタン  §f
+soulglass.hud.above=§8 - §7%s 上
+soulglass.hud.below=§8 - §7%s 下
+soulglass.hud.other_dimension.one=§8このディメンションにソウルランタンはありません §7(他に 1 基)
+soulglass.hud.other_dimension.many=§8このディメンションにソウルランタンはありません §7(他に %s 基)
+soulglass.hud.none=§8灯っているソウルランタンはありません
+soulglass.hint.break=§eソウルランタンを壊すとアイテムが戻ります
+soulglass.hint.owner=§cこのソウルランタンは %s のものです
+
+## 単位 --------------------------------------------------------------------
+soulglass.blocks.one=1 ブロック
+soulglass.blocks.many=%s ブロック
+
+## 方向（プレイヤーの視線を基準）--------------------------------------------
+soulglass.dir.0=まっすぐ前
+soulglass.dir.1=前方の右
+soulglass.dir.2=右手
+soulglass.dir.3=後方の右
+soulglass.dir.4=真後ろ
+soulglass.dir.5=後方の左
+soulglass.dir.6=左手
+soulglass.dir.7=前方の左

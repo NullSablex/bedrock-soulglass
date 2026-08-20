@@ -5,12 +5,12 @@ import { gravesOf } from "./storage.js";
 import { hintActive } from "./hud.js";
 import { isNote, holdingNote, refreshNote } from "./note.js";
 import { distanceTo, byDistance, nearestGrave } from "./distance.js";
-import { t, tn, join, raw, dimensionKey } from "./msg.js";
+import { t, tn, join, raw } from "./msg.js";
 
 /**
  * Guiding the player back: action bar, particle trail and the chat listing.
  *
- * All of it depends on holding the map. Nothing here writes to the item — the
+ * All of it depends on holding the guide. Nothing here writes to the item — the
  * numbers come from the registry every time.
  */
 
@@ -98,30 +98,49 @@ function drawBeacon(player, grave, distance) {
   }
 }
 
+/**
+ * Where the lantern is and how far away it is. Nothing else.
+ *
+ * The experience it holds used to be on this line. It answered a question
+ * nobody asks: the amount changes no decision, because every lantern is worth
+ * walking to and the XP comes back either way.
+ */
+function graveLine(player, grave) {
+  return join(
+    raw(`  §8- §f${grave.x} ${grave.y} ${grave.z}  §8- §f`),
+    tn(Math.round(distanceTo(player, grave)), "soulglass.blocks.one", "soulglass.blocks.many")
+  );
+}
+
+/**
+ * Lists only the lanterns in the dimension the player is standing in.
+ *
+ * Anything elsewhere is unreachable from here without a portal, so listing it
+ * is noise — coordinates the player cannot act on, and worse, coordinates that
+ * mean a different place in the world they are in.
+ *
+ * When nothing is lit here but something is lit elsewhere, that is worth one
+ * line: otherwise the player reads "you have none" and concludes their loot is
+ * gone.
+ */
 export function listGraves(player) {
-  const mine = gravesOf(player.id);
-  if (mine.length === 0) {
-    player.sendMessage(t("soulglass.list.none"));
+  const here = gravesHere(player);
+  if (here.length === 0) {
+    const elsewhere = gravesOf(player.id).length;
+    player.sendMessage(
+      elsewhere > 0
+        ? tn(elsewhere, "soulglass.list.elsewhere.one", "soulglass.list.elsewhere.many")
+        : t("soulglass.list.none")
+    );
     return;
   }
 
   player.sendMessage(
-    mine.length === 1 ? t("soulglass.list.one") : t("soulglass.list.many", mine.length)
+    here.length === 1 ? t("soulglass.list.one") : t("soulglass.list.many", here.length)
   );
 
-  for (const grave of byDistance(player, mine)) {
-    const distance = distanceTo(player, grave);
-    const where = distance !== Infinity
-      ? tn(Math.round(distance), "soulglass.blocks.one", "soulglass.blocks.many")
-      : dimensionKey(grave.dimension)
-        ? t(dimensionKey(grave.dimension))
-        : raw(grave.dimension.replace("minecraft:", ""));
-
-    player.sendMessage(join(
-      raw(`  §8- §f${grave.x} ${grave.y} ${grave.z} §8- §f`),
-      where,
-      grave.xp > 0 ? t("soulglass.list.xp", grave.xp) : undefined
-    ));
+  for (const grave of byDistance(player, here)) {
+    player.sendMessage(graveLine(player, grave));
   }
 }
 
@@ -131,7 +150,7 @@ function statusFor(player) {
 
   const elsewhere = gravesOf(player.id).length;
   return elsewhere > 0
-    ? t("soulglass.hud.other_dimension", elsewhere)
+    ? tn(elsewhere, "soulglass.hud.other_dimension.one", "soulglass.hud.other_dimension.many")
     : t("soulglass.hud.none");
 }
 
@@ -159,7 +178,7 @@ export function registerGuide() {
 
       refreshNote(player);
 
-      // A hud.js notice outranks the map; without yielding, both would write
+      // A hud.js notice outranks the guide; without yielding, both would write
       // to the same bar on different intervals and the text would flicker.
       if (!hintActive(player)) {
         player.onScreenDisplay.setActionBar(statusFor(player));

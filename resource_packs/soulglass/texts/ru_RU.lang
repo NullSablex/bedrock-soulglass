@@ -1,0 +1,51 @@
+## Soulglass — русский.
+## Основа: en_US.lang. Отсутствующий ключ берётся из английского.
+
+pack.name=Soulglass
+pack.description=Ваши предметы и опыт ждут вас в фонаре душ на месте гибели.
+
+## Чат ---------------------------------------------------------------------
+soulglass.marked=§8[§6Soulglass§8] §7Ваш фонарь душ горит там, где вы погибли.
+soulglass.overflow.one=§8[§6Soulglass§8] §c1 предмет не поместился и остался на земле.
+soulglass.overflow.many=§8[§6Soulglass§8] §c%s предметов не поместились и остались на земле.
+soulglass.lost=§8[§6Soulglass§8] §cПредметы из этого фонаря душ потеряны.
+soulglass.recovered.one=§8[§6Soulglass§8] §7Вы вернули §f1 предмет§7.
+soulglass.recovered.many=§8[§6Soulglass§8] §7Вы вернули §f%s предметов§7.
+soulglass.recovered.none=§8[§6Soulglass§8] §7Возвращать было нечего.
+soulglass.equipped.one=§8[§6Soulglass§8] §f1 предмет §7брони вернулся на место.
+soulglass.equipped.many=§8[§6Soulglass§8] §f%s предметов §7брони вернулись на место.
+soulglass.dropped.one=§8[§6Soulglass§8] §71 предмет упал на землю, инвентарь заполнен.
+soulglass.dropped.many=§8[§6Soulglass§8] §7%s предметов упали на землю, инвентарь заполнен.
+soulglass.xp.recovered=§8[§6Soulglass§8] §7+§a%s §7опыта возвращено.
+
+## Список ------------------------------------------------------------------
+soulglass.list.none=§8[§6Soulglass§8] §7У вас нет зажжённых фонарей душ.
+soulglass.list.elsewhere.one=§8[§6Soulglass§8] §7В этом измерении фонарей душ нет §8(1 в другом)
+soulglass.list.elsewhere.many=§8[§6Soulglass§8] §7В этом измерении фонарей душ нет §8(%s в других)
+soulglass.list.one=§8[§6Soulglass§8] §7Ваш фонарь душ:
+soulglass.list.many=§8[§6Soulglass§8] §7Ваши %s фонарей душ:
+
+## Панель действий ---------------------------------------------------------
+soulglass.hud.arrived=§aВаш фонарь душ прямо здесь
+soulglass.hud.prefix=§6Фонарь душ  §f
+soulglass.hud.above=§8 - §7%s вверх
+soulglass.hud.below=§8 - §7%s вниз
+soulglass.hud.other_dimension.one=§8В этом измерении фонарей душ нет §7(1 в другом)
+soulglass.hud.other_dimension.many=§8В этом измерении фонарей душ нет §7(%s в других)
+soulglass.hud.none=§8У вас нет зажжённых фонарей душ
+soulglass.hint.break=§eСломайте фонарь душ, чтобы забрать свои вещи
+soulglass.hint.owner=§cЭтот фонарь душ принадлежит %s
+
+## Единицы -----------------------------------------------------------------
+soulglass.blocks.one=1 блок
+soulglass.blocks.many=%s блоков
+
+## Направления относительно взгляда игрока ---------------------------------
+soulglass.dir.0=прямо перед вами
+soulglass.dir.1=впереди справа
+soulglass.dir.2=справа от вас
+soulglass.dir.3=позади справа
+soulglass.dir.4=позади вас
+soulglass.dir.5=позади слева
+soulglass.dir.6=слева от вас
+soulglass.dir.7=впереди слева

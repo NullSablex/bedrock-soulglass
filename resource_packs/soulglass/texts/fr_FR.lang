@@ -1,0 +1,51 @@
+## Soulglass — français.
+## Base : en_US.lang. Une clé manquante retombe sur l'anglais.
+
+pack.name=Soulglass
+pack.description=Vos objets et votre expérience vous attendent dans une lanterne des âmes, là où vous êtes mort.
+
+## Chat -------------------------------------------------------------------
+soulglass.marked=§8[§6Soulglass§8] §7Votre lanterne des âmes brûle là où vous êtes mort.
+soulglass.overflow.one=§8[§6Soulglass§8] §c1 objet n'a pas tenu et est resté au sol.
+soulglass.overflow.many=§8[§6Soulglass§8] §c%s objets n'ont pas tenu et sont restés au sol.
+soulglass.lost=§8[§6Soulglass§8] §cLes objets de cette lanterne des âmes sont perdus.
+soulglass.recovered.one=§8[§6Soulglass§8] §7Vous avez récupéré §f1 objet§7.
+soulglass.recovered.many=§8[§6Soulglass§8] §7Vous avez récupéré §f%s objets§7.
+soulglass.recovered.none=§8[§6Soulglass§8] §7Il ne restait rien à récupérer.
+soulglass.equipped.one=§8[§6Soulglass§8] §f1 pièce §7d'équipement est revenue sur vous.
+soulglass.equipped.many=§8[§6Soulglass§8] §f%s pièces §7d'équipement sont revenues sur vous.
+soulglass.dropped.one=§8[§6Soulglass§8] §71 objet est tombé au sol, votre sac est plein.
+soulglass.dropped.many=§8[§6Soulglass§8] §7%s objets sont tombés au sol, votre sac est plein.
+soulglass.xp.recovered=§8[§6Soulglass§8] §7+§a%s §7d'expérience récupérée.
+
+## Liste -------------------------------------------------------------------
+soulglass.list.none=§8[§6Soulglass§8] §7Vous n'avez aucune lanterne des âmes allumée.
+soulglass.list.elsewhere.one=§8[§6Soulglass§8] §7Aucune lanterne des âmes dans cette dimension §8(1 ailleurs)
+soulglass.list.elsewhere.many=§8[§6Soulglass§8] §7Aucune lanterne des âmes dans cette dimension §8(%s ailleurs)
+soulglass.list.one=§8[§6Soulglass§8] §7Votre lanterne des âmes :
+soulglass.list.many=§8[§6Soulglass§8] §7Vos %s lanternes des âmes :
+
+## Barre d'action ----------------------------------------------------------
+soulglass.hud.arrived=§aVotre lanterne des âmes est juste ici
+soulglass.hud.prefix=§6Lanterne des âmes  §f
+soulglass.hud.above=§8 - §7%s au-dessus
+soulglass.hud.below=§8 - §7%s en dessous
+soulglass.hud.other_dimension.one=§8Aucune lanterne des âmes dans cette dimension §7(1 ailleurs)
+soulglass.hud.other_dimension.many=§8Aucune lanterne des âmes dans cette dimension §7(%s ailleurs)
+soulglass.hud.none=§8Vous n'avez aucune lanterne des âmes allumée
+soulglass.hint.break=§eCassez la lanterne des âmes pour récupérer vos objets
+soulglass.hint.owner=§cCette lanterne des âmes appartient à %s
+
+## Unités ------------------------------------------------------------------
+soulglass.blocks.one=1 bloc
+soulglass.blocks.many=%s blocs
+
+## Directions, relatives au regard du joueur -------------------------------
+soulglass.dir.0=droit devant
+soulglass.dir.1=devant à droite
+soulglass.dir.2=à votre droite
+soulglass.dir.3=derrière, à droite
+soulglass.dir.4=derrière vous
+soulglass.dir.5=derrière, à gauche
+soulglass.dir.6=à votre gauche
+soulglass.dir.7=devant à gauche
