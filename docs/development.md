@@ -84,3 +84,24 @@ Cases worth testing specifically:
 4. Tag and attach the `.mcaddon` to a GitHub release.
 
 Both manifests carry their own version; the build reads the behavior pack's.
+
+## Module versions
+
+The add-on is built against `@minecraft/server` **2.9.0** and
+`@minecraft/server-ui` **2.1.0**, declared in `behavior_packs/soulglass/manifest.json`.
+
+Declaring a version the game does not have stops the pack loading outright, so
+this is the one number that trades reach for capability. Declaring an older one
+is safe — the engine promotes it and says so in the content log — but it also
+means writing against an API surface older than the one actually running.
+
+`tools/check.py` fails when the manifest and the documented versions disagree,
+because the documentation is the half nobody remembers to update.
+
+To find what a given build offers, read the content log after loading a world:
+
+```
+promoted [@minecraft/server] from [2.5.0] to [2.9.0]
+```
+
+The number on the right is what that build has.

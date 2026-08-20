@@ -190,3 +190,42 @@ registry wins.
 
 The sweep never overwrites anything: a position occupied by something else is
 left alone, and an unloaded chunk is skipped rather than treated as damage.
+
+## `/kill @e` and the vault
+
+The lantern is a block, so `/kill` never touches it. What the command reaches
+is the invisible entity pinned beneath it, which is where the items live.
+
+The vault refuses every kind of damage and cannot be pushed, burned or blown
+up. `/kill` gets past all of that, because it does not deal damage — it removes
+the entity, and no component setting prevents removal. Blocking the command was
+never an option.
+
+So the loss is undone instead of prevented. The contents are read while the
+entity still exists, and a replacement vault is filled with them on the next
+tick. `protection.rescueVault` controls this and is on by default.
+
+| Option | Default | |
+|---|---|---|
+| `protection.rescueVault` | `true` | Rebuild the vault when its entity is removed |
+
+Two things keep the cure from being worse than the disease. A rescue only
+happens where the registry says a lantern stands, and only if no vault is
+already there — two vaults for one lantern would duplicate every item in it.
+And a chunk unloading also removes its entities, which is not a loss at all;
+the marker block is unreadable while its chunk is gone, and that is how the two
+cases are told apart.
+
+Excluding the vault by family is still the better habit, because it never
+relies on any of the above:
+
+```
+/kill @e[family=!soulglass_vault]
+```
+
+!!! warning "Untested in game"
+    The rescue depends on `entityRemove` firing before the entity goes, with
+    its inventory still readable. That is what the API documents; it has not
+    been confirmed on 1.26 by running it. If it turns out not to hold, the
+    fallback is the behaviour that shipped before: experience comes back, the
+    items do not, and the owner is told.

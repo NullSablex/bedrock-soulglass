@@ -108,6 +108,126 @@ plugins:
             For developers: Para desenvolvedores
             Architecture: Arquitetura
             Development: Desenvolvimento
+        - locale: pt
+          name: Português (Portugal)
+          build: true
+          nav_translations:
+            Home: Início
+            For players: Para jogadores
+            What it does: O que faz
+            Installation: Instalação
+            Using the guide: Usar o guia
+            For server owners: Para donos de servidor
+            Configuration: Configuração
+            Languages: Idiomas
+            For developers: Para programadores
+            Architecture: Arquitetura
+            Development: Desenvolvimento
+        - locale: es
+          name: Español
+          build: true
+          nav_translations:
+            Home: Inicio
+            For players: Para jugadores
+            What it does: Qué hace
+            Installation: Instalación
+            Using the guide: Usar la guía
+            For server owners: Para administradores
+            Configuration: Configuración
+            Languages: Idiomas
+            For developers: Para desarrolladores
+            Architecture: Arquitectura
+            Development: Desarrollo
+        - locale: de
+          name: Deutsch
+          build: true
+          nav_translations:
+            Home: Start
+            For players: Für Spieler
+            What it does: Was es tut
+            Installation: Installation
+            Using the guide: Den Führer nutzen
+            For server owners: Für Serverbetreiber
+            Configuration: Konfiguration
+            Languages: Sprachen
+            For developers: Für Entwickler
+            Architecture: Architektur
+            Development: Entwicklung
+        - locale: fr
+          name: Français
+          build: true
+          nav_translations:
+            Home: Accueil
+            For players: Pour les joueurs
+            What it does: Ce qu'il fait
+            Installation: Installation
+            Using the guide: Utiliser le guide
+            For server owners: Pour les administrateurs
+            Configuration: Configuration
+            Languages: Langues
+            For developers: Pour les développeurs
+            Architecture: Architecture
+            Development: Développement
+        - locale: it
+          name: Italiano
+          build: true
+          nav_translations:
+            Home: Home
+            For players: Per i giocatori
+            What it does: Cosa fa
+            Installation: Installazione
+            Using the guide: Usare la guida
+            For server owners: Per gli amministratori
+            Configuration: Configurazione
+            Languages: Lingue
+            For developers: Per gli sviluppatori
+            Architecture: Architettura
+            Development: Sviluppo
+        - locale: ru
+          name: Русский
+          build: true
+          nav_translations:
+            Home: Главная
+            For players: Игрокам
+            What it does: Что он делает
+            Installation: Установка
+            Using the guide: Использование проводника
+            For server owners: Владельцам серверов
+            Configuration: Настройка
+            Languages: Языки
+            For developers: Разработчикам
+            Architecture: Архитектура
+            Development: Разработка
+        - locale: zh
+          name: 简体中文
+          build: true
+          nav_translations:
+            Home: 首页
+            For players: 玩家指南
+            What it does: 功能介绍
+            Installation: 安装
+            Using the guide: 使用向导
+            For server owners: 服主指南
+            Configuration: 配置
+            Languages: 语言
+            For developers: 开发者指南
+            Architecture: 架构
+            Development: 开发
+        - locale: ja
+          name: 日本語
+          build: true
+          nav_translations:
+            Home: ホーム
+            For players: プレイヤー向け
+            What it does: できること
+            Installation: インストール
+            Using the guide: ガイドの使い方
+            For server owners: サーバー運営者向け
+            Configuration: 設定
+            Languages: 言語
+            For developers: 開発者向け
+            Architecture: アーキテクチャ
+            Development: 開発
 
 markdown_extensions:
   - admonition

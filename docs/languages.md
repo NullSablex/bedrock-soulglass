@@ -87,19 +87,38 @@ docs/index.pt-BR.md    the same page in Brazilian Portuguese
 ```
 
 A page with no translation **falls back to English** instead of 404ing, so a
-language can be added one page at a time rather than all at once. Start with
-`index.md` and `features.md` — those are what a player reads before deciding to
-install anything.
+language can be added one page at a time rather than all at once.
+
+Ten locales are built: English, `pt-BR`, `pt`, `es`, `de`, `fr`, `it`, `ru`,
+`zh` and `ja`. Fewer than the eleven the game text has, and for a concrete
+reason rather than a judgement: Material for MkDocs ships interface strings —
+"Search", "Next", "Back to top" — only for the locales it knows about, and it
+has `pt` and `es` rather than `pt-PT`, `es-ES` and `es-MX`. A locale it does
+not recognise fails the build outright with a missing template. So the regional
+Spanish and European Portuguese pages exist, under the codes the theme
+understands.
+
+The game text keeps the finer split because Minecraft does **not** fall back
+from `pt_PT` to `pt_BR`, or from `es_MX` to `es_ES` — it goes straight to
+English. A browser has no such problem.
 
 To add a language, add its locale to the `i18n` plugin in `mkdocs.yml`,
-including the `nav_translations` block so the sidebar is translated too.
+including the `nav_translations` block so the sidebar is translated too, and
+check that `material/templates/partials/languages/` has a file for it.
 
-!!! note "Fewer languages here than in game, on purpose"
-    The `.lang` files are 40 keys a contributor can finish in one sitting and
-    never revisit. A documentation page is prose that goes stale every time the
-    add-on changes. Adding a locale here is a standing commitment, not a
-    one-off, which is why the site ships fewer languages than the game text
-    does.
+### What is translated today
+
+| Page | Status |
+|---|---|
+| `index.md` | Translated for all ten locales |
+| `features.md` | English only — the next one worth doing |
+| Everything else | English only |
+
+The order is not arbitrary. `index.md` and `features.md` are what someone reads
+before deciding to install anything, so they are worth the most languages. The
+configuration, architecture and development pages are written for people
+already committed, change with every release, and would go stale in nine
+languages faster than anyone could fix them.
 
 ## What cannot be translated
 

@@ -20,7 +20,7 @@ Só o dono abre a lanterna, e nada mais no jogo consegue destruí-la.
 
 | | |
 |---|---|
-| **Versão do jogo** | Bedrock 1.26 (`@minecraft/server` 2.5.0) |
+| **Versão do jogo** | Bedrock 1.26 (`@minecraft/server` 2.9.0, `@minecraft/server-ui` 2.1.0) |
 | **Pacotes** | Comportamento + Recurso — os dois são obrigatórios |
 | **Idiomas** | 11, com o inglês como base |
 | **Multijogador** | Sim; cada jogador vê apenas as próprias lanternas |

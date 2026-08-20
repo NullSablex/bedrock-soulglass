@@ -112,9 +112,11 @@ silence:
   experience too, so a lantern would be handing back what you never lost.
 - **It does not restore your inventory layout**, only your equipment slots.
   Items come back in the order they were stored.
-- **`/kill @e` destroys the storage** along with every other entity in the
-  world. Your experience still comes back and you are told what happened, but
-  the items are gone. Run that command knowing what it does.
+- **`/kill @e` reaches the storage**, along with every other entity in the
+  world. The lantern is a block and is never touched. The add-on rebuilds the
+  storage from what it was holding, so in practice nothing is lost — but this
+  is a repair, not a wall, and operators are better off excluding it outright
+  with `/kill @e[family=!soulglass_vault]`.
 - **The guide's item name is not translated.** Item text cannot carry
   translation keys, so it reads the same for everyone; a server can set it to
   its own language.

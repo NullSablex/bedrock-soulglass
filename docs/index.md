@@ -19,7 +19,7 @@ Only the owner can open a lantern, and nothing else in the game can destroy it.
 
 | | |
 |---|---|
-| **Game version** | Bedrock 1.26 (`@minecraft/server` 2.5.0) |
+| **Game version** | Bedrock 1.26 (`@minecraft/server` 2.9.0, `@minecraft/server-ui` 2.1.0) |
 | **Packs** | Behavior + Resource — both required |
 | **Languages** | 11, English as the base |
 | **Multiplayer** | Yes; each player sees only their own lanterns |

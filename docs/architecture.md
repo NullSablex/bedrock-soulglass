@@ -181,6 +181,31 @@ The sweep is deliberately timid. It skips a position holding anything solid,
 because overwriting what a player built would trade one loss for another, and
 it skips unloaded chunks — a lantern nobody has visited is absent, not damaged.
 
+## Removal is not damage
+
+The vault refuses every damage cause, cannot be pushed by a piston, does not
+burn and does not fall. None of that stops `/kill @e`, because `/kill` does not
+damage anything — it removes the entity, and the component system has no
+setting that refuses removal.
+
+That left a hole with no wall to build: the one command an operator is most
+likely to run on a schedule, to clear dropped items or mobs, quietly emptied
+every lantern in the world. Telling people not to run it is not a fix.
+
+Since the event cannot be refused, the loss is undone instead.
+`beforeEvents.entityRemove` hands over the entity while it still exists, and
+`getItem` returns copies rather than live references, so the stacks outlive the
+entity they came from. A replacement vault is spawned and filled on the next
+tick.
+
+Undoing carries its own risk, and it is the worse one: a rescue that fires when
+nothing was lost duplicates an entire inventory. Three conditions guard it. The
+registry must say a lantern stands there, so an unrelated entity is never
+resurrected. No vault may already exist at the position, so a spurious event
+cannot double the loot. And the marker block must be readable — a chunk
+unloading removes its entities too, which is not a loss, and an unloadable
+block is exactly the signal that says so.
+
 ## The marker must break by hand
 
 `playerBreakBlock` only fires when the block **would actually break**. With the
