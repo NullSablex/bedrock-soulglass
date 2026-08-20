@@ -9,9 +9,11 @@ Wanted, in rough order of usefulness:
 |---|---|
 | `lantern.png` | A soul lantern lit at a death site, in the open |
 | `guide-hud.png` | The action bar while holding the guide: distance, heading, height |
+| `menu.png` | The menu opened by using the guide |
+| `credits.png` | The credits screen |
 | `guide-trail.png` | The particle trail running through the air toward a lantern |
 | `recovery.png` | Armor back on the body right after breaking the lantern |
-| `list.png` | The chat listing after sneaking with the guide |
+| `list.png` | The chat listing, from the menu's *Show in chat* |
 | `protected.png` | The message another player gets trying to break someone else's lantern |
 | `stabilised.png` | A lantern on a beach with the solid block placed under it |
 

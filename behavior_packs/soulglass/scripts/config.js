@@ -142,6 +142,15 @@ export const CONFIG = {
     loreFooter: "§7Hold it to find your soul lantern",
     loreBlank: "§8A blank sheet.",
 
+    /**
+     * Ticks to ignore a second open after the menu is opened.
+     *
+     * A held right-click repeats, and one event arrives for air and another
+     * for blocks. Without this the form reopens several times a second and
+     * cannot be dismissed.
+     */
+    openCooldown: 10,
+
     /** Ticks between action bar refreshes. 5 means four times per second. */
     refreshTicks: 5,
 

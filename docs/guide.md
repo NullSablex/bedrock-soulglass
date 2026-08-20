@@ -36,8 +36,8 @@ Anything that does not fit falls at your feet.
 Dying again before recovering the first lantern is fine — both stay, indefinitely.
 Nothing expires and nothing is overwritten.
 
-The guide always points at the **nearest** lantern. To see the rest, **sneak while
-holding it**:
+The guide always points at the **nearest** lantern. To see the rest, **use it**
+and pick *My Lanterns*, or *Show in chat* for a list you can read back later:
 
 ```
 Your 2 soul lanterns:

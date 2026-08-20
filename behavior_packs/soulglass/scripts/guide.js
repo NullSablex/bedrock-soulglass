@@ -149,13 +149,9 @@ export function registerGuide() {
     }
   }, CONFIG.note.trail?.everyTicks ?? 10);
 
-  const wasSneaking = new Map();
   system.runInterval(() => {
     for (const player of world.getPlayers()) {
-      if (!holdingNote(player)) {
-        wasSneaking.delete(player.id);
-        continue;
-      }
+      if (!holdingNote(player)) continue;
 
       refreshNote(player);
 
@@ -164,20 +160,40 @@ export function registerGuide() {
       if (!hintActive(player)) {
         player.onScreenDisplay.setActionBar(statusFor(player));
       }
-
-      /*
-       * Sneaking opens the menu. Paper has no use action of its own, so
-       * `itemUse` may never fire for it — unlike a compass. This trigger
-       * depends on no item event at all, which makes it the reliable path.
-       */
-      const before = wasSneaking.get(player.id) === true;
-      const now = player.isSneaking === true;
-      wasSneaking.set(player.id, now);
-      if (now && !before) open(player);
     }
   }, CONFIG.note.refreshTicks);
 
+  /*
+   * The menu opens on use, and on use only.
+   *
+   * Sneaking used to open it as well, because paper has no use action of its
+   * own and `itemUse` might never fire for it. It turned out to be the wrong
+   * trade: sneaking is something players do constantly — crossing a ledge,
+   * lining up a placement — and a menu that appears for that is an
+   * interruption, not a feature.
+   *
+   * Two events instead, because a right-click is one gesture the game reports
+   * two ways: `itemUse` when it lands on air, `playerInteractWithBlock` when it
+   * lands on a block. Between them there is nowhere left to click.
+   */
+  const lastOpen = new Map();
+
+  function openOnce(player) {
+    // Right-click repeats while the button is held, and a form reopening
+    // several times a second cannot be dismissed.
+    const now = system.currentTick;
+    if (now - (lastOpen.get(player.id) ?? -Infinity) < CONFIG.note.openCooldown) return;
+    lastOpen.set(player.id, now);
+    open(player);
+  }
+
   subscribeSafe(world.afterEvents, "itemUse", (ev) => {
-    if (isNote(ev.itemStack)) open(ev.source);
+    if (isNote(ev.itemStack)) openOnce(ev.source);
   });
+
+  subscribeSafe(world.afterEvents, "playerInteractWithBlock", (ev) => {
+    if (isNote(ev.itemStack)) openOnce(ev.player);
+  });
+
+  subscribeSafe(world.afterEvents, "playerLeave", (ev) => lastOpen.delete(ev.playerId));
 }

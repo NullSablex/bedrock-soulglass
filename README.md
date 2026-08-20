@@ -42,9 +42,9 @@ walks through every feature with the reasoning behind it.
   blocks below is fifty blocks away, not zero.
 - **A guide that actually points** — distance, heading and a particle trail
   through the air, following the real line to the lantern in three dimensions.
-  Sneak with it to list the lanterns in the world you are standing in; the ones
-  elsewhere are counted, not spelled out as coordinates that mean somewhere else
-  here.
+  Use it to open a menu listing the lanterns in the world you are standing in;
+  the ones elsewhere are counted, not spelled out as coordinates that mean
+  somewhere else here.
 - **Placed somewhere you can reach**, even if you died in lava, at the bottom of
   the ocean, or in the void.
 - **Yours alone** — other players cannot open or break it; explosions and
@@ -53,10 +53,6 @@ walks through every feature with the reasoning behind it.
   game, and the documentation home page in 10.
 
 ## Install
-
-> **No release yet.** Nothing is tagged, so the badges above read as empty and
-> the Releases page is bare. Build the packages yourself with
-> `python tools/build.py --all`, or wait for the first tag.
 
 1. Download `Soulglass_v<version>.mcaddon` from
    [Releases](https://github.com/NullSablex/bedrock-soulglass/releases/latest).
@@ -79,7 +75,7 @@ the lantern is and which way to go, with a trail of light pointing there.
 Reached it? **Break the lantern.** Everything comes back. The guide disappears
 once you have nothing left to collect.
 
-Sneak while holding the guide to list every lantern you have.
+Use the guide to open its menu: your lanterns, the same list in chat, and credits.
 
 ## Configure
 
@@ -99,8 +95,7 @@ Player-facing text never sits in the code — it goes through translation keys.
 
 - [What it does](https://nullsablex.github.io/bedrock-soulglass/features/) —
   the full feature tour, for players, including what it deliberately does not do
-- [Changelog](CHANGELOG.md) — currently **Unreleased**: everything below is on
-  `master` and has not been tagged
+- [Changelog](CHANGELOG.md)
 - [Contributing guide](CONTRIBUTING.md)
 - [Architecture](https://nullsablex.github.io/bedrock-soulglass/architecture/) —
   the API constraints that shaped every design decision

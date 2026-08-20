@@ -47,8 +47,9 @@ You respawn holding a sheet of paper. While you hold it:
 <!-- ![The guide on the action bar](img/guide-hud.png) -->
 <!-- ![The particle trail](img/guide-trail.png) -->
 
-**Sneak while holding it** and your lanterns are listed in chat with their
-coordinates and distance. Only the world you are standing in is listed —
+**Use it** — right-click, or the equivalent on your device — and a menu opens
+listing your lanterns with their coordinates and distance, with a button to
+print the same list into chat. Only the world you are standing in is listed —
 coordinates from the Nether mean a different place in the Overworld, so showing
 them would send you to the wrong spot. If everything you have is somewhere
 else, it says so rather than telling you that you have none.

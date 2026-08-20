@@ -22,7 +22,16 @@ BDS does not read `.mcaddon`. Extract it and place each half by hand:
 <server>/resource_packs/soulglass/
 ```
 
-Then register both in the world folder:
+### Finding the packs is automatic. Applying them is not.
+
+On startup the server scans `behavior_packs/` and `resource_packs/`, and writes
+what it finds into `valid_known_packs.json` itself. **Nothing needs adding to
+that file** — editing it by hand is a common piece of advice and it is wrong,
+because the server rewrites it.
+
+What discovery does not do is decide which packs a *world* uses. That lives
+with the world, so that two worlds on one server can run different packs, and
+it is declared here:
 
 ```json title="worlds/<world>/world_behavior_packs.json"
 [
@@ -36,8 +45,19 @@ Then register both in the world folder:
 ]
 ```
 
-If either file already exists, add the object to the list instead of replacing
-the file. Restart the server; the log should show `[Soulglass] ready`.
+`<world>` is the `level-name` from `server.properties`, and the `pack_id`
+values are the `header.uuid` of each manifest — copied above so you do not have
+to open them. If either file already exists, add the object to the list rather
+than replacing the file.
+
+Restart the server. The log should show `[Soulglass] ready`.
+
+!!! tip "If your host does this for you"
+    Panels and managed hosts commonly write these two files when you upload an
+    add-on, which makes it look as though dropping the folders in was enough.
+    It is worth checking the files exist before concluding the add-on is
+    broken — a pack that is present but not applied loads no scripts at all,
+    and the symptom is silence rather than an error.
 
 ## Development install
 
@@ -77,4 +97,4 @@ itself in the log instead of silently killing the add-on.
 **Messages show as raw keys.** The resource pack is not active.
 
 **`/scriptevent` says the command does not exist.** Cheats are disabled in that
-world. Sneaking while holding the guide does the same job without cheats.
+world. Using the guide does the same job without cheats.
