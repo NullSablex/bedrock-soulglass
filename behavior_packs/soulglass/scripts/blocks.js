@@ -33,14 +33,35 @@ export function isFloor(block) {
 /**
  * Does this block drop when whatever holds it up is removed?
  *
- * Exact ids first, then the families the game spells out one id per colour or
- * damage level. Never a substring test: `minecraft:sandstone` contains `sand`
- * and stays exactly where it is, and so does `minecraft:soul_sand`.
+ * Unlike `isInteractive`, this cannot be asked as a property, and the
+ * difference is worth stating rather than papering over. A block that opens
+ * carries a state saying so; a block that falls carries nothing. There is no
+ * component, no state and no reliable tag for gravity — the tags that exist
+ * describe which tool digs a block, so `sand` also covers soul sand, which
+ * does not fall, and `stone` covers sandstone, which is not sand at all.
+ * Matching on those would be worse than matching on names, because it would
+ * look principled while being wrong.
+ *
+ * So this is a list, and `gravityTags` is here for the day the API grows
+ * something better, or for a pack that defines its own tag. Empty by default:
+ * a wrong tag replaces terrain nobody asked to change.
+ *
+ * Being incomplete costs less than it looks. A block missing from the list
+ * means a lantern that pops loose and is put back by the repair sweep — a
+ * visible stutter, not lost belongings, because the vault never depended on
+ * the marker standing.
  */
 export function fallsWhenUnsupported(block) {
   if (!block) return false;
-  const id = block.typeId;
   const cfg = CONFIG.protection;
+
+  if (cfg.gravityTags.length > 0) {
+    try {
+      if (cfg.gravityTags.some((tag) => block.hasTag(tag))) return true;
+    } catch { /* tags unavailable in this version */ }
+  }
+
+  const id = block.typeId;
   if (cfg.gravityBlocks.includes(id)) return true;
   return cfg.gravitySuffixes.some((suffix) => id.endsWith(suffix));
 }

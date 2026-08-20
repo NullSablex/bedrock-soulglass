@@ -402,6 +402,17 @@ export const CONFIG = {
      * hit — never the lantern. So a base on this list is replaced rather than
      * guarded: see `placement.stabiliseBase`.
      */
+    /**
+     * Block tags to treat as falling, tried before the lists below.
+     *
+     * Empty on purpose. Bedrock's block tags describe which tool digs a block,
+     * not how it behaves: `sand` covers soul sand, which does not fall, and
+     * matching it would replace Nether terrain nobody asked to change. This is
+     * here for a pack that defines a tag of its own, or for the day the API
+     * exposes gravity directly.
+     */
+    gravityTags: [],
+
     gravityBlocks: [
       "minecraft:gravel",
       "minecraft:suspicious_gravel",

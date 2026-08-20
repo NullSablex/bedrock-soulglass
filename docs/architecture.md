@@ -113,6 +113,26 @@ the void or deep underwater. The lantern then climbs the death column until it
 leaves the liquid and stands on a platform built for it. Even there, the
 position itself is never liquid.
 
+## A property where there is one, a list where there is not
+
+Two questions in this add-on look alike and are not.
+
+Whether a block should keep a right-click to itself is answerable from the
+block: containers carry an inventory component, and anything operable carries a
+state describing its own operation — `open_bit`, `button_pressed_bit`,
+`occupied_bit`. That test never mentions oak or magenta, and a version that
+adds a new wood is covered before it ships.
+
+Whether a block falls is not answerable at all. Nothing in the API marks it.
+The tags that exist describe which tool digs a block, which is a different
+question wearing similar words: `sand` includes soul sand, `stone` includes
+sandstone. A tag test there would read as principled and behave as a bug.
+
+So one is a property and the other is a list, and the list is honest about
+being one. What makes that tolerable is that the list is an optimisation rather
+than a guarantee — the repair sweep restores a marker that falls regardless of
+whether anyone predicted it would.
+
 ## Only the current dimension is listed
 
 The chat listing shows lanterns in the dimension the player is standing in, and

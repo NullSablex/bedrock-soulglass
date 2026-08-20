@@ -174,9 +174,29 @@ lantern is lit on gravel or sand, that one block becomes `supportBlock`.
 Lanterns lit before this existed are converted in place by the repair sweep.
 
 The cost is one block of the world changed, which is why `stabiliseBase` can be
-turned off. Note that `minecraft:sandstone` and `minecraft:soul_sand` do not
-fall despite their names, and are left alone — the match is on whole block ids
-and suffixes, never on substrings.
+turned off.
+
+### Why this one is a list and the click test is not
+
+Whether a block can be *operated* is a property: it carries a state saying so,
+or an inventory component. Whether a block *falls* is not. No component, no
+state, no tag marks it.
+
+The tags Bedrock does have describe which tool digs a block, which is a
+different question wearing similar words — `sand` also covers soul sand, which
+stays put, and `stone` covers sandstone, which is not sand at all. Matching on
+those would look principled and behave as a bug, replacing Nether terrain
+nobody asked to change. `gravityTags` exists and is empty for exactly that
+reason: it is there for a pack that defines a tag of its own, or for the day
+the API exposes gravity directly.
+
+Being incomplete costs less than it looks. A block missing from the list means
+a lantern that pops loose and is put back by the repair sweep within a few
+seconds — a visible stutter, not lost belongings, because the vault never
+depended on the marker standing.
+
+`minecraft:sandstone` and `minecraft:soul_sand` are left alone despite their
+names: the match is on whole ids and suffixes, never on substrings.
 
 Prevention only covers what announces itself as a player, an explosion or a
 piston. Plain survival has other ways to remove a block, and none of them fire
