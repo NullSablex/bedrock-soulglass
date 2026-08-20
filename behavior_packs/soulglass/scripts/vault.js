@@ -44,3 +44,22 @@ export function containerOf(entity) {
     return undefined;
   }
 }
+
+/**
+ * Everything the vault is holding, read out while the entity still exists.
+ *
+ * `getItem` hands back a copy rather than a live reference, which is what makes
+ * this worth doing: the stacks stay valid after the entity they came from is
+ * gone.
+ */
+export function snapshotVault(entity) {
+  const container = containerOf(entity);
+  if (!container) return [];
+
+  const stacks = [];
+  for (let slot = 0; slot < container.size; slot++) {
+    const stack = container.getItem(slot);
+    if (stack) stacks.push(stack);
+  }
+  return stacks;
+}

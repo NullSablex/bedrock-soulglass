@@ -8,13 +8,13 @@ import {
 import { xpToBury, clearDroppedOrbs, grantXp } from "./xp.js";
 import { equipmentToBury, restoreEquipment } from "./equip.js";
 import { giveNote, removeNote, isNote } from "./note.js";
-import { listLanterns } from "./guide.js";
+import { listLanterns } from "./chat.js";
 import { blockAt, below, above, isFree } from "./blocks.js";
 import {
   findLanternSpot, placeSupport, stabiliseBase, placeMarker, placeLight, clearLight,
   isMarker,
 } from "./placement.js";
-import { spawnVault, findVault, containerOf } from "./vault.js";
+import { spawnVault, findVault, containerOf, snapshotVault } from "./vault.js";
 import { t, tn } from "./msg.js";
 
 /**
@@ -311,6 +311,68 @@ function openLantern(player, lantern) {
  * Breaking by a player is handled in registerLantern. What lives here are the
  * vectors that do NOT go through `playerBreakBlock` and would slip by unseen.
  */
+/**
+ * Puts the vault back after something removed the entity.
+ *
+ * `/kill @e` is why this exists. The vault refuses every kind of damage, but
+ * `/kill` does not deal damage — it removes the entity outright, and no
+ * component prevents that. Since the command is normally typed to clear
+ * dropped items or mobs, emptying a player's lantern is collateral nobody
+ * asked for, and "do not run that command" is not a fix.
+ *
+ * The contents are read in the before-event, while the entity is still there,
+ * and a replacement is filled on the next tick.
+ */
+function rescueVault(dimension, markerLocation, stacks) {
+  // The registry decides whether this position is a lantern at all. Without a
+  // record there is nothing to rescue and no owner to rescue it for.
+  if (!lanternAt(dimension.id, markerLocation)) return;
+
+  /*
+   * An unloading chunk removes its entities too, and that is not a loss —
+   * they come back with the chunk. Reading the marker block is what tells the
+   * two apart: while the chunk is gone the block is unreadable, and a lantern
+   * nobody is near needs no rescue.
+   */
+  if (!blockAt(dimension, markerLocation)) return;
+
+  // Never two vaults for one lantern. That would duplicate every item in it,
+  // which is a worse bug than the one being fixed.
+  if (findVault(dimension, markerLocation)) return;
+
+  const container = containerOf(spawnVault(dimension, markerLocation));
+  if (!container) {
+    console.warn(`[Soulglass] could not rebuild the vault at ${posKey(dimension.id, markerLocation)}`);
+    return;
+  }
+
+  const overflow = fillVault(container, stacks);
+  if (overflow.length > 0) scatter(dimension, overflow, markerLocation);
+  console.warn(
+    `[Soulglass] vault removed and rebuilt at ` +
+    `${markerLocation.x} ${markerLocation.y} ${markerLocation.z} in ${dimension.id}`
+  );
+}
+
+function registerVaultRescue() {
+  if (!CONFIG.protection.rescueVault) return;
+
+  subscribeSafe(world.beforeEvents, "entityRemove", (ev) => {
+    const entity = ev.removedEntity;
+    if (entity?.typeId !== CONFIG.vault.entityId) return;
+
+    // Read now: one tick later there is nothing left to read.
+    const dimension = entity.dimension;
+    const at = entity.location;
+    const markerLocation = {
+      x: Math.floor(at.x), y: Math.floor(at.y), z: Math.floor(at.z),
+    };
+    const stacks = snapshotVault(entity);
+
+    system.run(() => rescueVault(dimension, markerLocation, stacks));
+  });
+}
+
 function registerIndestructible() {
   if (CONFIG.protection.explosions) {
     // Cancelling the whole explosion would punish the entire world. Instead the
@@ -421,6 +483,8 @@ function dimensionOf(id) {
 }
 
 export function registerLantern() {
+  registerVaultRescue();
+
   if (CONFIG.repairTicks > 0) {
     system.runInterval(repairMarkers, CONFIG.repairTicks);
   }

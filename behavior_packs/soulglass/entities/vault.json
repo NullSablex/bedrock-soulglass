@@ -8,7 +8,7 @@
       "is_experimental": false
     },
     "components": {
-      "minecraft:type_family": { "family": ["tumulo_cofre", "inanimate"] },
+      "minecraft:type_family": { "family": ["soulglass_vault", "inanimate"] },
 
       "minecraft:inventory": {
         "inventory_size": 41,
