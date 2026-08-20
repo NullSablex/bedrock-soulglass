@@ -41,6 +41,23 @@ def load_json(path, where):
         return None
 
 
+# The versions this add-on is built against. A manifest that drifts from the
+# documentation is a support question waiting to happen, and the docs are the
+# half nobody remembers to update.
+EXPECTED_MODULES = {
+    "@minecraft/server": "2.9.0",
+    "@minecraft/server-ui": "2.1.0",
+}
+
+
+def check_modules(data, where):
+    """Script module versions must match what the documentation promises."""
+    for dep in data.get("dependencies", []):
+        name = dep.get("module_name")
+        if name in EXPECTED_MODULES and dep.get("version") != EXPECTED_MODULES[name]:
+            fail(where, 1, f"{name} is {dep.get('version')}, expected {EXPECTED_MODULES[name]}")
+
+
 def check_manifest(path, where):
     data = load_json(path, where)
     if data is None:
@@ -65,9 +82,95 @@ def check_manifest(path, where):
             fail(where, 1, f"duplicate UUID: {uuid}")
         seen.add(uuid)
 
+    check_modules(data, where)
+
     # An entities/ folder is only read when a 'data' module is declared.
     if (path.parent / "entities").is_dir() and "data" not in kinds:
         fail(where, 1, "entities/ exists but the manifest declares no 'data' module")
+
+
+def check_tokens(text, where):
+    """Walks the file as a tokenizer would, reporting anything left open.
+
+    There is no JavaScript engine here to parse with, and counting brackets on
+    raw text is worse than nothing: it reads punctuation inside strings and
+    comments as structure. So this tracks what it is inside of, which catches
+    the class of mistake that actually happens when a file is written by a
+    script — a newline inside a quoted string, silently ending it.
+    """
+    line, i, n = 1, 0, len(text)
+    stack = []
+    while i < n:
+        ch = text[i]
+
+        if ch == "\n":
+            line += 1
+            i += 1
+            continue
+
+        if ch == "\\":               # escape: skip whatever follows
+            i += 2
+            continue
+
+        if text.startswith("//", i):
+            i = text.find("\n", i)
+            if i < 0:
+                return
+            continue
+
+        if text.startswith("/*", i):
+            end = text.find("*/", i + 2)
+            if end < 0:
+                fail(where, line, "unterminated block comment")
+                return
+            line += text.count("\n", i, end)
+            i = end + 2
+            continue
+
+        if ch in "\"'":
+            start_line, i, quote = line, i + 1, ch
+            while i < n and text[i] != quote:
+                if text[i] == "\\":
+                    i += 2
+                    continue
+                # A plain string cannot span lines. This is the one that broke
+                # menu.js: a written \n that arrived as a real newline.
+                if text[i] == "\n":
+                    fail(where, start_line, "string is still open at end of line")
+                    return
+                i += 1
+            i += 1
+            continue
+
+        if ch == "`":
+            start_line, i = line, i + 1
+            while i < n and text[i] != "`":
+                if text[i] == "\\":
+                    i += 2
+                    continue
+                if text[i] == "\n":
+                    line += 1
+                i += 1
+            if i >= n:
+                fail(where, start_line, "template literal is never closed")
+                return
+            i += 1
+            continue
+
+        if ch in "([{":
+            stack.append((ch, line))
+        elif ch in ")]}":
+            if not stack:
+                fail(where, line, f"stray '{ch}'")
+                return
+            opener, opened = stack.pop()
+            if "([{"[")]}".index(ch)] != opener:
+                fail(where, line, f"'{opener}' from line {opened} closed by '{ch}'")
+                return
+        i += 1
+
+    for opener, opened in stack:
+        fail(where, opened, f"'{opener}' is never closed")
 
 
 def callback_body(text, start):
@@ -201,10 +304,11 @@ def check_pack(pack):
                     if key not in defined:
                         fail(where, line, f"key '{key}' missing from {language}.lang")
 
-        # Not a syntax check, but it exposes a truncated edit.
-        for opening, closing in (("{", "}"), ("(", ")"), ("[", "]")):
-            if text.count(opening) != text.count(closing):
-                warn(where, 1, f"unbalanced '{opening}' and '{closing}'")
+        # Counting brackets on raw text was the old check here. It passed a
+        # file the game refused to load with a SyntaxError, because it counted
+        # punctuation inside strings and comments as structure. This walks the
+        # file the way a tokenizer would instead.
+        check_tokens(text, where)
 
         # Side effects inside beforeEvents are rejected by the API at runtime.
         for m in re.finditer(r'beforeEvents,\s*"(\w+)"', text):
