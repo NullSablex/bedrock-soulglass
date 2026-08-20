@@ -9,10 +9,10 @@ what "security issue" usually means.
 What does count:
 
 - **Item duplication.** Any sequence that ends with more items than went in.
-- **Item loss.** Any sequence where a grave, or its contents, disappears
+- **Item loss.** Any sequence where a lantern, or its contents, disappears
   without the owner recovering them.
 - **Theft.** Any way for a player to read, open, or destroy another player's
-  grave, or to read coordinates that are not theirs.
+  lantern, or to read coordinates that are not theirs.
 - **Server disruption.** Anything that can be triggered on purpose to stall or
   crash a server — entity floods, unbounded loops, dynamic property growth.
 
@@ -60,3 +60,34 @@ versions is not something it can honestly promise.
 | Version | Supported |
 |---|---|
 | 1.0.x | Yes |
+
+## OpenSSF Scorecard
+
+The badge in the README links to an automated report. Scorecard runs the same
+checks against every repository regardless of what it is, and has no verdict for
+"does not apply" — a check that cannot apply scores the same 0 as a check that
+was ignored.
+
+Two of them can never apply here, and are dismissed as such in the repository's
+code scanning alerts:
+
+| Check | Why it can never apply |
+|---|---|
+| **Fuzzing** | Fuzzing feeds malformed input to code that parses untrusted data. This add-on parses nothing: its inputs are typed events from the game engine, already validated before a script ever sees them. It also cannot run outside Minecraft — `@minecraft/server` is supplied by the game, so there is no harness to write. |
+| **CII-Best-Practices** | Requires enrolling the project in a separate external programme. It measures a registration, not anything about this code. |
+
+Others score low without pointing at a defect. They are left open rather than
+dismissed, because they describe where the project is today and will move on
+their own:
+
+| Check | What it is waiting on |
+|---|---|
+| **Maintained** | Repository age and commit history. Time. |
+| **Code-Review** | Review by a second person. Contributors. |
+| **Contributors** | Contributors from several organizations. The same. |
+| **Packaging** | Publication to a package registry. Minecraft add-ons ship as `.mcaddon` files through GitHub Releases; if that ever changes, so will this. |
+
+Everything else Scorecard measures is acted on: pinned dependencies, permissions
+on workflow tokens, branch protection, secret scanning, static analysis and
+build provenance are all in place, and a regression in any of them is a real
+finding worth reporting through the process above.

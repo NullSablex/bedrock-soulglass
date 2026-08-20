@@ -6,7 +6,6 @@
 ![Minecraft Bedrock](https://img.shields.io/badge/Bedrock-1.26+-orange)
 ![Script API](https://img.shields.io/badge/%40minecraft%2Fserver-2.5.0-orange)
 ![Packs](https://img.shields.io/badge/packs-behavior%20%2B%20resource-green)
-![Languages](https://img.shields.io/badge/languages-en%20%7C%20pt--BR%20%7C%20es-lightgrey)
 [![Release](https://img.shields.io/github/v/release/NullSablex/bedrock-soulglass?label=download)](https://github.com/NullSablex/bedrock-soulglass/releases/latest)
 [![Downloads](https://img.shields.io/github/downloads/NullSablex/bedrock-soulglass/total?label=downloads)](https://github.com/NullSablex/bedrock-soulglass/releases)
 [![Check](https://github.com/NullSablex/bedrock-soulglass/actions/workflows/check.yml/badge.svg)](https://github.com/NullSablex/bedrock-soulglass/actions/workflows/check.yml)
@@ -16,11 +15,11 @@
 ## Overview
 
 **Soulglass** keeps what you were carrying when you died. Items and experience
-go into a grave marked by a soul lantern, and a paper map leads you back to it.
+go into a lantern lit where you died, and a paper guide leads you back to it.
 Break the lantern and everything returns — armor going straight back onto your
 body, in the slots it came from.
 
-Nobody else can open your grave, and nothing else in the game can destroy it.
+Nobody else can open your lantern, and nothing else in the game can destroy it.
 
 📖 **[Full documentation](https://nullsablex.github.io/bedrock-soulglass/)**
 
@@ -31,13 +30,19 @@ Nobody else can open your grave, and nothing else in the game can destroy it.
 > solely to describe what this add-on is compatible with. It is not distributed
 > through the Minecraft Marketplace.
 
+**New here?** [What it does](https://nullsablex.github.io/bedrock-soulglass/features/)
+walks through every feature with the reasoning behind it.
+
 ### Highlights
 
 - **Nothing is lost** — items *and* experience, returned together.
 - **Armor comes back worn**, in the original slots, and it is the exact piece
   you had on rather than an identical one from your backpack.
-- **A map that actually points** — distance, heading and a particle trail
-  through the air, following the real line to the grave in three dimensions.
+- **A guide that actually points** — distance, heading and a particle trail
+  through the air, following the real line to the lantern in three dimensions.
+  Sneak with it to list the lanterns in the world you are standing in; the ones
+  elsewhere are counted, not spelled out as coordinates that mean somewhere else
+  here.
 - **Placed somewhere you can reach**, even if you died in lava, at the bottom of
   the ocean, or in the void.
 - **Yours alone** — other players cannot open or break it; explosions and
@@ -61,13 +66,13 @@ for Bedrock Dedicated Server.
 
 ## How to play
 
-You die, you respawn, you get a map. Hold it and the action bar shows how far
-the grave is and which way to go, with a trail of light pointing there.
+You die, you respawn, you get a guide. Hold it and the action bar shows how far
+the lantern is and which way to go, with a trail of light pointing there.
 
-Reached it? **Break the lantern.** Everything comes back. The map disappears
+Reached it? **Break the lantern.** Everything comes back. The guide disappears
 once you have nothing left to collect.
 
-Sneak while holding the map to list every grave you have.
+Sneak while holding the guide to list every lantern you have.
 
 ## Configure
 
@@ -85,6 +90,8 @@ python tools/build.py --all     # writes the three release packages
 Source language is **en-US**: comments, identifiers, the base `.lang` file.
 Player-facing text never sits in the code — it goes through translation keys.
 
+- [What it does](https://nullsablex.github.io/bedrock-soulglass/features/) —
+  the full feature tour, for players, including what it deliberately does not do
 - [Contributing guide](CONTRIBUTING.md)
 - [Architecture](https://nullsablex.github.io/bedrock-soulglass/architecture/) —
   the API constraints that shaped every design decision
@@ -95,7 +102,7 @@ Player-facing text never sits in the code — it goes through translation keys.
 
 ## Status
 
-Verified in game: grave creation, XP recovery, the map, and protection from
+Verified in game: lantern creation, XP recovery, the guide, and protection from
 other players. **Not yet verified:** the equipment restore and the translation
 layer.
 
