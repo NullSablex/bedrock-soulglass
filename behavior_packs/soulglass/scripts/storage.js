@@ -63,6 +63,11 @@ export function graveAt(dimensionId, loc) {
   return readAll().find((g) => g.key === key);
 }
 
+/** Every grave in the world, for sweeps that are not tied to one player. */
+export function allGraves() {
+  return readAll();
+}
+
 export function gravesOf(ownerId) {
   return readAll().filter((g) => g.ownerId === ownerId);
 }

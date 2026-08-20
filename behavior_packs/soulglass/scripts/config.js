@@ -42,14 +42,18 @@ export const CONFIG = {
    *
    * The definition lives in entities/vault.json. With no client-side model the
    * entity renders as nothing, which is exactly what we want.
+   *
+   * The slot count is NOT configurable from here: it is declared as
+   * `inventory_size` in that file, and the game reads it from there. A number
+   * in this file would be editable and have no effect, which is worse than no
+   * number at all. The code asks the container for its own size.
    */
   vault: {
     entityId: "soulglass:vault",
-    slots: 41,
   },
 
   /**
-   * The grave map, handed over on respawn.
+   * The soul guide, handed over on respawn.
    *
    * It is a sheet of paper rather than a compass, and the reason is the needle:
    * on a plain compass it points at world spawn, and on a recovery compass it
@@ -73,9 +77,9 @@ export const CONFIG = {
       "minecraft:paper",
       "minecraft:book",
     ],
-    itemName: "§6Grave Map",
-    loreHeader: "§7Scribbled in a hurry.",
-    loreFooter: "§7Hold it to see the way",
+    itemName: "§6Soul Guide",
+    loreHeader: "§7Scrawled in a hurry.",
+    loreFooter: "§7Hold it to find your soul lantern",
     loreBlank: "§8A blank sheet.",
 
     /** Ticks between action bar refreshes. 5 means four times per second. */
@@ -109,10 +113,51 @@ export const CONFIG = {
     consumeOnRecover: true,
   },
 
+  /**
+   * How much the add-on says in chat.
+   *
+   * Almost nothing, by default. Recovering a grave already shows itself: the
+   * items are in the inventory, the armor is on the body, the experience bar
+   * moved. Narrating all of that is noise, and six lines for one event reads
+   * worse than silence.
+   *
+   * What survives is only what the player cannot see for themselves — that a
+   * grave now exists somewhere, and that something did not fit and is lying on
+   * the ground about to despawn.
+   */
+  messages: {
+    /** One line on death, so the player knows a grave was created. */
+    onBurial: true,
+    /** The full breakdown on recovery: items, gear, experience. */
+    onRecovery: false,
+    /** Only when something did not fit. This one is actionable. */
+    warnDropped: true,
+  },
+
   /** Search radius for the item entities dropped on death. */
   pickupRadius: 8,
-  /** Ticks to wait after death for the drops to exist as entities. */
-  pickupDelayTicks: 10,
+
+  /**
+   * Ticks to wait after death before the first collection.
+   *
+   * Drops do not exist as entities the instant `entityDie` fires, so some wait
+   * is unavoidable. Every tick of it is a window where the loot lies on the
+   * ground in plain sight, able to be grabbed by someone else or burned by the
+   * lava that did the killing. Two ticks is enough for the entities to appear.
+   */
+  pickupDelayTicks: 2,
+
+  /**
+   * Follow-up sweeps, in ticks after death.
+   *
+   * The first pass is deliberately early, which means it can miss items still
+   * flying outward and experience orbs still spreading. These later passes top
+   * up the same grave rather than making a new one.
+   *
+   * Missing an orb is not cosmetic: the experience is already stored in the
+   * grave, so anything left on the ground is duplicated experience.
+   */
+  sweepTicks: [10, 30, 60],
 
   /** Only the owner breaks the grave and receives its contents. */
   ownerOnly: true,
@@ -170,6 +215,15 @@ export const CONFIG = {
     maxOrbs: 80,
     /** Ticks between each batch of orbs, to spread the cost. */
     orbBatchDelay: 2,
+
+    /**
+     * Search radius when clearing the orbs that dropped on death.
+     *
+     * Wider than pickupRadius on purpose: orbs scatter further than items and
+     * keep drifting. An orb left behind is experience the player receives
+     * twice, since the same amount is already stored in the grave.
+     */
+    orbRadius: 16,
   },
 
   /**
@@ -181,7 +235,65 @@ export const CONFIG = {
     explosions: true,
     /** A piston shoving the marker out of place. */
     pistons: true,
+    /**
+     * The block the marker rests on counts as part of the grave.
+     *
+     * A soul lantern needs support. Knock the block out from under it and the
+     * lantern pops off as an ordinary item — and `playerBreakBlock` fires for
+     * the ground, not for the marker, so nothing notices, and the vault stays
+     * pinned underground with no way left to open it.
+     *
+     * With this on, the ground behaves exactly like the marker: the owner
+     * breaking it gets their belongings back, anyone else is stopped, and
+     * explosions and pistons leave it alone. Turning it off restores the hole
+     * described above; there is no good reason to.
+     */
+    support: true,
+
+    /**
+     * Blocks that fall when what holds them up is removed.
+     *
+     * A lantern standing on gravel is held up by whatever is under the gravel,
+     * and by whatever is under that. Breaking any link drops the whole column
+     * and the lantern with it, and the break event names the block that was
+     * hit — never the lantern. So a base on this list is replaced rather than
+     * guarded: see `placement.stabiliseBase`.
+     */
+    gravityBlocks: [
+      "minecraft:gravel",
+      "minecraft:suspicious_gravel",
+      "minecraft:sand",
+      "minecraft:red_sand",
+      "minecraft:suspicious_sand",
+      "minecraft:concrete_powder",
+      "minecraft:anvil",
+      "minecraft:pointed_dripstone",
+      "minecraft:dragon_egg",
+    ],
+
+    /**
+     * Families where the game has one block id per colour or per damage level.
+     *
+     * Matched by suffix, because listing every one by hand would go stale the
+     * moment a version adds another. Kept as suffixes rather than substrings on
+     * purpose: `sandstone` contains `sand` and does not fall.
+     */
+    gravitySuffixes: ["_concrete_powder", "_anvil"],
+
   },
+
+  /**
+   * How often to check that every marker is still standing, in ticks.
+   *
+   * Prevention closes what announces itself: a player, an explosion, a piston.
+   * This closes the rest, and the rest is ordinary survival — gravel falling
+   * onto the lantern, fire, lava reaching it, another addon that has never
+   * heard of this one. The registry is authoritative: if it says a grave is
+   * there, the block goes back. 0 disables the sweep.
+   *
+   * Cost is one block read per grave per pass, skipping unloaded chunks.
+   */
+  repairTicks: 100,
 
   /**
    * Where a grave may appear.
@@ -192,10 +304,23 @@ export const CONFIG = {
    * solid ground to stand on, headroom, and no liquid touching it.
    */
   placement: {
-    /** How far up to search for a good spot, starting from the death point. */
-    searchUp: 32,
-    /** Horizontal search radius, when the death column will not do. */
-    searchRadius: 5,
+    /**
+     * How far to look for a safe block, in every direction.
+     *
+     * The grave goes to the nearest safe block from where the player died, the
+     * way a bed finds a respawn spot. Search cost grows with the cube of this
+     * number, but it is paid only by deaths that need it: most resolve at the
+     * death position or one block away.
+     */
+    searchRadius: 6,
+
+    /**
+     * Vertical range for the one case the search cannot solve: no safe block
+     * anywhere near, in the void or deep underwater. Much larger than the
+     * radius because the job is to climb out of a liquid, and an ocean floor
+     * can sit a hundred blocks below the surface.
+     */
+    emergencySearchUp: 320,
     /** Require solid ground below, so the owner can stand there. */
     requireStanding: true,
     /** Reject spots inside or touching water and lava. */
@@ -207,6 +332,17 @@ export const CONFIG = {
      */
     buildSupport: true,
     supportBlock: "minecraft:cobblestone",
+
+    /**
+     * Replace a base that can fall with `supportBlock`.
+     *
+     * Building ground over the void is already accepted, and this is the same
+     * problem wearing a disguise: gravel and sand look like ground until
+     * something under them is removed, and then the lantern falls with the
+     * column. One block of the world changes so the lantern cannot be dropped
+     * by digging somewhere else entirely.
+     */
+    stabiliseBase: true,
 
     /**
      * EXTRA light source, one block above the grave.

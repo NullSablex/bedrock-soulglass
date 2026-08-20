@@ -30,6 +30,21 @@ export function isFloor(block) {
   return !CONFIG.replaceable.includes(block.typeId);
 }
 
+/**
+ * Does this block drop when whatever holds it up is removed?
+ *
+ * Exact ids first, then the families the game spells out one id per colour or
+ * damage level. Never a substring test: `minecraft:sandstone` contains `sand`
+ * and stays exactly where it is, and so does `minecraft:soul_sand`.
+ */
+export function fallsWhenUnsupported(block) {
+  if (!block) return false;
+  const id = block.typeId;
+  const cfg = CONFIG.protection;
+  if (cfg.gravityBlocks.includes(id)) return true;
+  return cfg.gravitySuffixes.some((suffix) => id.endsWith(suffix));
+}
+
 export function above(location) {
   return { x: location.x, y: location.y + 1, z: location.z };
 }
