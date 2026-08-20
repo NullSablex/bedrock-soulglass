@@ -146,6 +146,25 @@ export const CONFIG = {
     refreshTicks: 5,
 
     /**
+     * How close counts as arrived, in blocks, measured in three dimensions.
+     *
+     * This was hard-coded at 2 and measured on the flat, so a lantern fifty
+     * blocks below announced that the player had arrived while they stood on
+     * the roof above it.
+     */
+    arrivedWithin: 2,
+
+    /**
+     * Below this ground distance the heading is dropped.
+     *
+     * A bearing needs horizontal separation to mean anything. Standing almost
+     * on top of the lantern it points wherever the rounding fell, which sends
+     * the player away from what is under their feet. The height difference
+     * still shows, and that is the useful half there.
+     */
+    headingBeyond: 2,
+
+    /**
      * Particle trail pointing at the lantern.
      *
      * This is what the needle should have done and could not. It also improves

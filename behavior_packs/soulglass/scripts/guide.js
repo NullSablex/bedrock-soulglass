@@ -6,7 +6,7 @@ import { hintActive } from "./hud.js";
 import { isNote, holdingNote, refreshNote } from "./note.js";
 import { showMenu } from "./menu.js";
 import { listLanterns } from "./chat.js";
-import { nearestLantern } from "./distance.js";
+import { nearestLantern, groundDistanceTo } from "./distance.js";
 import { t, tn, join, raw } from "./msg.js";
 
 /**
@@ -45,14 +45,25 @@ function headingTo(player, lantern) {
  */
 function actionBarLine(player, near) {
   const distance = Math.round(near.distance);
-  if (distance <= 2) return t("soulglass.hud.arrived");
+  if (distance <= CONFIG.note.arrivedWithin) return t("soulglass.hud.arrived");
 
   const dy = Math.round(near.lantern.y - player.location.y);
+
+  /*
+   * Standing on top of it, or under it, there is no direction to give. A
+   * bearing computed from a metre of horizontal offset points wherever the
+   * rounding fell, and sends the player walking away from what is beneath
+   * their feet.
+   */
+  const ground = groundDistanceTo(player, near.lantern);
+  const heading = ground >= CONFIG.note.headingBeyond
+    ? join(raw(" §8- §e"), t(headingTo(player, near.lantern)))
+    : undefined;
+
   return join(
     t("soulglass.hud.prefix"),
     tn(distance, "soulglass.blocks.one", "soulglass.blocks.many"),
-    raw(" §8- §e"),
-    t(headingTo(player, near.lantern)),
+    heading,
     dy > 1 ? t("soulglass.hud.above", dy) : undefined,
     dy < -1 ? t("soulglass.hud.below", -dy) : undefined
   );
