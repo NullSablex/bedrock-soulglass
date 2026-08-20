@@ -152,38 +152,43 @@ export const CONFIG = {
     openCooldown: 10,
 
     /**
-     * Blocks whose own right-click action wins over the menu.
+     * Block states that only exist because the block can be operated.
      *
-     * A right-click at a chest opens the chest; the item in hand is not used.
-     * The game still reports the interaction, so without this the menu opened
-     * on top of the container, the door, the crafting table — every block that
-     * does something of its own.
+     * This is the test, and it is a property rather than a name. Doors,
+     * trapdoors, fence gates and levers carry `open_bit`; buttons carry
+     * `button_pressed_bit`; beds carry `occupied_bit`. A block that describes
+     * its own opening is a block that opens, whatever it is made of and
+     * whatever colour it was dyed.
      *
-     * Containers are detected by their inventory component and need no entry.
-     * What is listed here is everything that reacts without holding items:
-     * doors, buttons, workstations, beds.
+     * Containers are not here: they answer through their inventory component,
+     * which also covers boxes added by other add-ons.
+     */
+    interactiveStates: [
+      "open_bit",
+      "button_pressed_bit",
+      "toggle_bit",
+      "occupied_bit",
+      "door_hinge_bit",
+      "upper_block_bit",
+      "lever_direction",
+      "in_wall_bit",
+    ],
+
+    /**
+     * The exceptions, and there are few.
+     *
+     * Workstations are operable and say so nowhere: to every test above, a
+     * crafting table is a solid cube. These have no colour or wood variants,
+     * so the list stays short and does not go stale.
      */
     interactiveBlocks: [
       "minecraft:crafting_table", "minecraft:cartography_table",
       "minecraft:smithing_table", "minecraft:loom", "minecraft:stonecutter",
-      "minecraft:grindstone", "minecraft:enchanting_table", "minecraft:anvil",
-      "minecraft:beacon", "minecraft:lectern", "minecraft:bell",
-      "minecraft:jukebox", "minecraft:noteblock", "minecraft:note_block",
-      "minecraft:composter", "minecraft:cauldron", "minecraft:lever",
-      "minecraft:respawn_anchor", "minecraft:flower_pot", "minecraft:cake",
-      "minecraft:crafter", "minecraft:chiseled_bookshelf",
-      "minecraft:decorated_pot", "minecraft:vault",
-    ],
-
-    /**
-     * Families the game spells out one id per material or colour. Matched by
-     * suffix for the same reason the gravity list is: listing every wood type
-     * by hand goes stale the moment a version adds another.
-     */
-    interactiveSuffixes: [
-      "_door", "_trapdoor", "_fence_gate", "_button", "_bed", "_sign",
-      "_shulker_box", "_anvil", "_cauldron", "_candle", "_beehive", "_hive",
-      "_command_block", "_bookshelf",
+      "minecraft:grindstone", "minecraft:enchanting_table", "minecraft:beacon",
+      "minecraft:lectern", "minecraft:bell", "minecraft:jukebox",
+      "minecraft:composter", "minecraft:respawn_anchor", "minecraft:flower_pot",
+      "minecraft:cake", "minecraft:crafter", "minecraft:chiseled_bookshelf",
+      "minecraft:decorated_pot", "minecraft:noteblock",
     ],
 
     /** Ticks between action bar refreshes. 5 means four times per second. */

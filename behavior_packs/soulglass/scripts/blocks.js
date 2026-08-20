@@ -48,14 +48,25 @@ export function fallsWhenUnsupported(block) {
 /**
  * Does this block do something of its own when right-clicked?
  *
- * If it does, the click belongs to it and not to whatever is in hand: opening
- * a chest does not use the item you are holding, and a menu appearing over the
- * chest is the add-on talking over the game.
+ * If it does, the click belongs to it and not to whatever is in hand. Opening
+ * a chest does not use the item you are holding — the game already routes the
+ * click correctly, and all this has to do is stop treating the report of that
+ * click as a use of the item.
  *
- * Containers answer for themselves through their inventory component, which
- * covers chests, barrels, furnaces, hoppers and every modded box nobody can
- * enumerate. The rest is the configured list — doors, workstations, beds, the
- * things that react while holding nothing.
+ * Asked as a property, never as a name. An earlier version listed block ids
+ * and suffix families, which meant enumerating every wood type and every dyed
+ * variant, and being wrong about a colour that shipped later. What a block is
+ * called says nothing about what it does.
+ *
+ * Two properties answer it:
+ *
+ *   - an inventory component, which every container has: chests, barrels,
+ *     furnaces, hoppers, and whatever another add-on adds without telling us;
+ *
+ *   - a state that only exists because the block can be operated. `open_bit`
+ *     belongs to doors, trapdoors, fence gates and levers; `button_pressed_bit`
+ *     to buttons; `occupied_bit` to beds. A block with a state describing its
+ *     own opening is a block that opens.
  */
 export function isInteractive(block) {
   if (!block) return false;
@@ -64,10 +75,16 @@ export function isInteractive(block) {
     if (block.getComponent("minecraft:inventory")) return true;
   } catch { /* no such component in this version */ }
 
-  const id = block.typeId;
-  const cfg = CONFIG.note;
-  if (cfg.interactiveBlocks.includes(id)) return true;
-  return cfg.interactiveSuffixes.some((suffix) => id.endsWith(suffix));
+  try {
+    const states = block.permutation.getAllStates();
+    for (const state of CONFIG.note.interactiveStates) {
+      if (state in states) return true;
+    }
+  } catch { /* permutation unavailable */ }
+
+  // Workstations are operable and say so nowhere in their state: a crafting
+  // table looks exactly like a solid cube to every test above.
+  return CONFIG.note.interactiveBlocks.includes(block.typeId);
 }
 
 export function above(location) {

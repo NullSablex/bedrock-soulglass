@@ -234,26 +234,38 @@ relies on any of the above:
 
 The menu opens on use, and a right-click reaches the add-on two ways: as
 `itemUse` when it lands on air, and as an interaction when it lands on a block.
-The second one arrives even when the block handled the click itself — opening a
-chest does not use what is in your hand, but the game reports the interaction
-regardless.
+The second arrives even when the block handled the click itself.
 
-Left alone, that meant the menu appeared over every container, door and
-workbench touched while carrying the guide. So the block gets first refusal.
+The game already routes the click correctly — opening a chest does not use what
+is in your hand. The add-on simply has to stop reading the report of that click
+as a use of the item.
+
+**The test is a property, not a name.** A block that can be operated says so:
+
+| Signal | Covers |
+|---|---|
+| an inventory component | chests, barrels, furnaces, hoppers, and boxes other add-ons introduce |
+| `open_bit` | doors, trapdoors, fence gates, levers |
+| `button_pressed_bit` | buttons |
+| `occupied_bit` | beds |
+
+None of that cares what the block is made of or what colour it was dyed. An
+earlier version listed ids and suffix families, which meant enumerating every
+wood type and every dye, and being wrong about whatever shipped next.
 
 | Option | Default | |
 |---|---|---|
-| `note.interactiveBlocks` | crafting table, lever, bell… | Blocks whose own action wins |
-| `note.interactiveSuffixes` | `_door`, `_button`, `_bed`… | Families with one id per material |
+| `note.interactiveStates` | `open_bit`, `button_pressed_bit`… | States that mean operable |
+| `note.interactiveBlocks` | crafting table, lectern, bell… | The few with no such state |
 | `note.openCooldown` | `10` | Ticks before the menu may open again |
 
-Containers need no entry: they are recognised by their inventory component,
-which covers chests, barrels, furnaces, hoppers and anything another add-on
-introduces. The lists are for blocks that react while holding nothing — doors,
-buttons, workstations, beds.
+`interactiveBlocks` exists only for workstations, which are operable and
+describe it nowhere: to every test above, a crafting table is a solid cube.
+They have no colour or wood variants, so the list stays short.
 
 A soul lantern needs no entry: its own handler cancels the interaction before
 this one is reached, so the click never arrives here at all.
 
-If some block still opens the menu when it should not, add its id to
-`interactiveBlocks`, or its family to `interactiveSuffixes` — no code change.
+If some block still opens the menu when it should not, its state is worth
+checking first — a missing entry in `interactiveStates` fixes a whole family at
+once, where an id fixes one block.
