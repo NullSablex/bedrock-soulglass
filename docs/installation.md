@@ -13,6 +13,40 @@
     pack active, every message appears as a raw key such as
     `soulglass.hud.none`.
 
+## Checking a download is genuine
+
+Optional, and nobody needs it to play. It matters because this add-on handles
+everything a player is carrying, which makes it worth repacking with something
+extra and reposting on a download site — and a `.mcaddon` is a zip, so anyone
+can open one, change it and close it again.
+
+Every release carries a `provenance.intoto.jsonl` file. It is not something to
+install: it records which workflow built each package, from which commit, and
+the exact SHA-256 of each file, signed by GitHub's own build identity rather
+than by a key the maintainer keeps.
+
+With the [GitHub CLI](https://cli.github.com/) installed:
+
+```bash
+gh attestation verify Soulglass_v1.0.0.mcaddon --repo NullSablex/bedrock-soulglass
+```
+
+A genuine file prints a confirmation and exits 0. A file that was modified,
+even by one byte, fails — its hash matches no attestation, so there is nothing
+to check it against:
+
+```
+Error: HTTP 404: Not Found (.../attestations/sha256:8cf37be5...)
+```
+
+The point is that this needs no trust in the maintainer, in the site you
+downloaded from, or in this page. The signature is verified against a public
+transparency log; either the file came out of this repository or it did not.
+
+!!! note "Only for files from Releases"
+    Packages you built yourself with `tools/build.py` have no attestation and
+    will fail the same way. That is expected — nothing signed them.
+
 ## Bedrock Dedicated Server
 
 BDS does not read `.mcaddon`. Extract it and place each half by hand:

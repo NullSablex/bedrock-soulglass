@@ -59,6 +59,13 @@ walks through every feature with the reasoning behind it.
 2. Open the file. The game installs both packs.
 3. In your world, enable **both** the behavior pack and the resource pack.
 
+Every release is signed by the workflow that built it. To check a download came
+from this repository and was not modified:
+
+```bash
+gh attestation verify Soulglass_v1.0.0.mcaddon --repo NullSablex/bedrock-soulglass
+```
+
 > Enabling only the behavior pack leaves every message showing as a raw
 > translation key. Both halves are required — the resource pack carries the
 > translation strings.
