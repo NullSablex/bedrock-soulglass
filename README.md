@@ -4,7 +4,7 @@
 
 ![License](https://img.shields.io/badge/license-MPL--2.0-blue)
 ![Minecraft Bedrock](https://img.shields.io/badge/Bedrock-1.26+-orange)
-![Script API](https://img.shields.io/badge/%40minecraft%2Fserver-2.5.0-orange)
+![Script API](https://img.shields.io/badge/%40minecraft%2Fserver-2.9.0-orange)
 ![Packs](https://img.shields.io/badge/packs-behavior%20%2B%20resource-green)
 [![Release](https://img.shields.io/github/v/release/NullSablex/bedrock-soulglass?label=download)](https://github.com/NullSablex/bedrock-soulglass/releases/latest)
 [![Downloads](https://img.shields.io/github/downloads/NullSablex/bedrock-soulglass/total?label=downloads)](https://github.com/NullSablex/bedrock-soulglass/releases)
@@ -38,6 +38,8 @@ walks through every feature with the reasoning behind it.
 - **Nothing is lost** — items *and* experience, returned together.
 - **Armor comes back worn**, in the original slots, and it is the exact piece
   you had on rather than an identical one from your backpack.
+- **Reaches you where you are** — distance counts height, so a lantern fifty
+  blocks below is fifty blocks away, not zero.
 - **A guide that actually points** — distance, heading and a particle trail
   through the air, following the real line to the lantern in three dimensions.
   Sneak with it to list the lanterns in the world you are standing in; the ones
@@ -47,9 +49,14 @@ walks through every feature with the reasoning behind it.
   the ocean, or in the void.
 - **Yours alone** — other players cannot open or break it; explosions and
   pistons leave it untouched.
-- **Each player reads their own language**, resolved on their client.
+- **Each player reads their own language**, resolved on their client. 11 in
+  game, and the documentation home page in 10.
 
 ## Install
+
+> **No release yet.** Nothing is tagged, so the badges above read as empty and
+> the Releases page is bare. Build the packages yourself with
+> `python tools/build.py --all`, or wait for the first tag.
 
 1. Download `Soulglass_v<version>.mcaddon` from
    [Releases](https://github.com/NullSablex/bedrock-soulglass/releases/latest).
@@ -92,6 +99,8 @@ Player-facing text never sits in the code — it goes through translation keys.
 
 - [What it does](https://nullsablex.github.io/bedrock-soulglass/features/) —
   the full feature tour, for players, including what it deliberately does not do
+- [Changelog](CHANGELOG.md) — currently **Unreleased**: everything below is on
+  `master` and has not been tagged
 - [Contributing guide](CONTRIBUTING.md)
 - [Architecture](https://nullsablex.github.io/bedrock-soulglass/architecture/) —
   the API constraints that shaped every design decision
