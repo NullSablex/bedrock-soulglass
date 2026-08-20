@@ -2,7 +2,7 @@ import { system, world } from "@minecraft/server";
 import { CONFIG } from "./config.js";
 import { isInteractive } from "./blocks.js";
 import { subscribeSafe } from "./safe.js";
-import { lanternsOf, lanternAt } from "./storage.js";
+import { lanternsOf } from "./storage.js";
 import { hintActive } from "./hud.js";
 import { isNote, holdingNote, refreshNote } from "./note.js";
 import { showMenu } from "./menu.js";
@@ -200,14 +200,6 @@ export function registerGuide() {
     // the same — so without this the menu opened over every container, door
     // and workbench the player touched while carrying the guide.
     if (isInteractive(ev.block)) return;
-
-    // A lantern has an action of its own too: it answers with the hint saying
-    // to break it. Its own handler cancels the interaction, so this should
-    // never be reached — but the menu appearing over that hint is exactly the
-    // bug being fixed, and the check costs one registry lookup.
-    const at = ev.block.location;
-    if (lanternAt(ev.block.dimension.id, at)
-      || lanternAt(ev.block.dimension.id, { x: at.x, y: at.y + 1, z: at.z })) return;
 
     openOnce(ev.player);
   });

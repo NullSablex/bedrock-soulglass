@@ -252,8 +252,8 @@ which covers chests, barrels, furnaces, hoppers and anything another add-on
 introduces. The lists are for blocks that react while holding nothing — doors,
 buttons, workstations, beds.
 
-A soul lantern is excluded too. It answers a click with the hint saying to
-break it, and that is its own action.
+A soul lantern needs no entry: its own handler cancels the interaction before
+this one is reached, so the click never arrives here at all.
 
 If some block still opens the menu when it should not, add its id to
 `interactiveBlocks`, or its family to `interactiveSuffixes` — no code change.
