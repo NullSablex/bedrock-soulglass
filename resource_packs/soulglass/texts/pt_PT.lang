@@ -5,33 +5,33 @@
 ## outra: sem este ficheiro, quem joga em pt_PT lia tudo em inglês. A diferença
 ## está sobretudo no tratamento, aqui na segunda pessoa.
 
-pack.name=Soulglass
-pack.description=Os teus itens e a tua experiência esperam por ti numa lanterna das almas, onde morreste.
+pack.name=§bSoulglass §3[§bRP§3]
+pack.description=§fOs teus itens e a tua experiência esperam por ti numa lanterna das almas, acesa onde morreste.
 
 ## Chat -------------------------------------------------------------------
-soulglass.marked=§8[§6Soulglass§8] §7A tua lanterna das almas foi acesa onde morreste.
-soulglass.overflow.one=§8[§6Soulglass§8] §c1 item não coube e ficou no chão.
-soulglass.overflow.many=§8[§6Soulglass§8] §c%s itens não couberam e ficaram no chão.
-soulglass.lost=§8[§6Soulglass§8] §cOs itens desta lanterna das almas perderam-se.
-soulglass.recovered.one=§8[§6Soulglass§8] §7Recuperaste §f1 item§7.
-soulglass.recovered.many=§8[§6Soulglass§8] §7Recuperaste §f%s itens§7.
-soulglass.recovered.none=§8[§6Soulglass§8] §7Não sobrou nada para recuperar.
-soulglass.equipped.one=§8[§6Soulglass§8] §f1 peça §7voltou ao corpo.
-soulglass.equipped.many=§8[§6Soulglass§8] §f%s peças §7voltaram ao corpo.
-soulglass.dropped.one=§8[§6Soulglass§8] §71 item caiu no chão, a tua mochila está cheia.
-soulglass.dropped.many=§8[§6Soulglass§8] §7%s itens caíram no chão, a tua mochila está cheia.
-soulglass.xp.recovered=§8[§6Soulglass§8] §7+§a%s §7de experiência recuperada.
+soulglass.marked=§3[§bSoulglass§3] §7A tua lanterna das almas foi acesa onde morreste.
+soulglass.overflow.one=§3[§bSoulglass§3] §c1 item não coube e ficou no chão.
+soulglass.overflow.many=§3[§bSoulglass§3] §c%s itens não couberam e ficaram no chão.
+soulglass.lost=§3[§bSoulglass§3] §cOs itens desta lanterna das almas perderam-se.
+soulglass.recovered.one=§3[§bSoulglass§3] §7Recuperaste §f1 item§7.
+soulglass.recovered.many=§3[§bSoulglass§3] §7Recuperaste §f%s itens§7.
+soulglass.recovered.none=§3[§bSoulglass§3] §7Não sobrou nada para recuperar.
+soulglass.equipped.one=§3[§bSoulglass§3] §f1 peça §7voltou ao corpo.
+soulglass.equipped.many=§3[§bSoulglass§3] §f%s peças §7voltaram ao corpo.
+soulglass.dropped.one=§3[§bSoulglass§3] §71 item caiu no chão, a tua mochila está cheia.
+soulglass.dropped.many=§3[§bSoulglass§3] §7%s itens caíram no chão, a tua mochila está cheia.
+soulglass.xp.recovered=§3[§bSoulglass§3] §7+§a%s §7de experiência recuperada.
 
 ## Lista de lanternas das almas ---------------------------------------------
-soulglass.list.none=§8[§6Soulglass§8] §7Não tens nenhuma lanterna das almas acesa.
-soulglass.list.elsewhere.one=§8[§6Soulglass§8] §7Nenhuma lanterna das almas nesta dimensão §8(1 noutra)
-soulglass.list.elsewhere.many=§8[§6Soulglass§8] §7Nenhuma lanterna das almas nesta dimensão §8(%s noutras)
-soulglass.list.one=§8[§6Soulglass§8] §7A tua lanterna das almas:
-soulglass.list.many=§8[§6Soulglass§8] §7As tuas %s lanternas das almas:
+soulglass.list.none=§3[§bSoulglass§3] §7Não tens nenhuma lanterna das almas acesa.
+soulglass.list.elsewhere.one=§3[§bSoulglass§3] §7Nenhuma lanterna das almas nesta dimensão §8(1 noutra)
+soulglass.list.elsewhere.many=§3[§bSoulglass§3] §7Nenhuma lanterna das almas nesta dimensão §8(%s noutras)
+soulglass.list.one=§3[§bSoulglass§3] §7A tua lanterna das almas:
+soulglass.list.many=§3[§bSoulglass§3] §7As tuas %s lanternas das almas:
 
 ## Barra de ação ------------------------------------------------------------
 soulglass.hud.arrived=§aA tua lanterna das almas está mesmo aqui
-soulglass.hud.prefix=§6Lanterna das almas  §f
+soulglass.hud.prefix=§bLanterna das almas  §f
 soulglass.hud.above=§8 - §7%s acima
 soulglass.hud.below=§8 - §7%s abaixo
 soulglass.hud.other_dimension.one=§8Nenhuma lanterna das almas nesta dimensão §7(1 noutra)
@@ -53,3 +53,22 @@ soulglass.dir.4=atrás de ti
 soulglass.dir.5=atrás, pela esquerda
 soulglass.dir.6=à tua esquerda
 soulglass.dir.7=à frente-esquerda
+
+## Menu and credits
+soulglass.menu.title=§bGuia da Alma
+soulglass.menu.body.none=§7Nenhuma lanterna das almas acesa.
+soulglass.menu.body.one=§fUma lanterna das almas acesa.
+soulglass.menu.body.many=§f%s lanternas das almas acesas.
+soulglass.menu.lanterns=§bAs Minhas Lanternas
+soulglass.menu.lanterns.body=§7Da mais perto para a mais longe.
+soulglass.menu.chat=§eVer no chat
+soulglass.menu.back=§8Voltar
+soulglass.credits.title=§bCréditos
+soulglass.credits.tagline=§7Uma lanterna das almas guarda o que levavas contigo.
+soulglass.credits.by=§7Feito por
+soulglass.credits.version=§7Versão
+soulglass.credits.license=§7Licença
+soulglass.credits.source=§7Código-fonte no GitHub
+soulglass.credits.link=§bVer link no chat
+soulglass.credits.translators=§7Traduzido pela comunidade. Correções são bem-vindas.
+soulglass.credits.disclaimer=Sem afiliação com a Mojang Studios, a Microsoft ou o Minecraft.

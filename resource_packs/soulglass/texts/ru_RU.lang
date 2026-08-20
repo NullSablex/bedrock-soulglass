@@ -1,33 +1,33 @@
 ## Soulglass — русский.
 ## Основа: en_US.lang. Отсутствующий ключ берётся из английского.
 
-pack.name=Soulglass
-pack.description=Ваши предметы и опыт ждут вас в фонаре душ на месте гибели.
+pack.name=§bSoulglass §3[§bRP§3]
+pack.description=§fВаши предметы и опыт ждут вас в фонаре душ, зажжённом там, где вы погибли.
 
 ## Чат ---------------------------------------------------------------------
-soulglass.marked=§8[§6Soulglass§8] §7Ваш фонарь душ горит там, где вы погибли.
-soulglass.overflow.one=§8[§6Soulglass§8] §c1 предмет не поместился и остался на земле.
-soulglass.overflow.many=§8[§6Soulglass§8] §c%s предметов не поместились и остались на земле.
-soulglass.lost=§8[§6Soulglass§8] §cПредметы из этого фонаря душ потеряны.
-soulglass.recovered.one=§8[§6Soulglass§8] §7Вы вернули §f1 предмет§7.
-soulglass.recovered.many=§8[§6Soulglass§8] §7Вы вернули §f%s предметов§7.
-soulglass.recovered.none=§8[§6Soulglass§8] §7Возвращать было нечего.
-soulglass.equipped.one=§8[§6Soulglass§8] §f1 предмет §7брони вернулся на место.
-soulglass.equipped.many=§8[§6Soulglass§8] §f%s предметов §7брони вернулись на место.
-soulglass.dropped.one=§8[§6Soulglass§8] §71 предмет упал на землю, инвентарь заполнен.
-soulglass.dropped.many=§8[§6Soulglass§8] §7%s предметов упали на землю, инвентарь заполнен.
-soulglass.xp.recovered=§8[§6Soulglass§8] §7+§a%s §7опыта возвращено.
+soulglass.marked=§3[§bSoulglass§3] §7Ваш фонарь душ горит там, где вы погибли.
+soulglass.overflow.one=§3[§bSoulglass§3] §c1 предмет не поместился и остался на земле.
+soulglass.overflow.many=§3[§bSoulglass§3] §c%s предметов не поместились и остались на земле.
+soulglass.lost=§3[§bSoulglass§3] §cПредметы из этого фонаря душ потеряны.
+soulglass.recovered.one=§3[§bSoulglass§3] §7Вы вернули §f1 предмет§7.
+soulglass.recovered.many=§3[§bSoulglass§3] §7Вы вернули §f%s предметов§7.
+soulglass.recovered.none=§3[§bSoulglass§3] §7Возвращать было нечего.
+soulglass.equipped.one=§3[§bSoulglass§3] §f1 предмет §7брони вернулся на место.
+soulglass.equipped.many=§3[§bSoulglass§3] §f%s предметов §7брони вернулись на место.
+soulglass.dropped.one=§3[§bSoulglass§3] §71 предмет упал на землю, инвентарь заполнен.
+soulglass.dropped.many=§3[§bSoulglass§3] §7%s предметов упали на землю, инвентарь заполнен.
+soulglass.xp.recovered=§3[§bSoulglass§3] §7+§a%s §7опыта возвращено.
 
 ## Список ------------------------------------------------------------------
-soulglass.list.none=§8[§6Soulglass§8] §7У вас нет зажжённых фонарей душ.
-soulglass.list.elsewhere.one=§8[§6Soulglass§8] §7В этом измерении фонарей душ нет §8(1 в другом)
-soulglass.list.elsewhere.many=§8[§6Soulglass§8] §7В этом измерении фонарей душ нет §8(%s в других)
-soulglass.list.one=§8[§6Soulglass§8] §7Ваш фонарь душ:
-soulglass.list.many=§8[§6Soulglass§8] §7Ваши %s фонарей душ:
+soulglass.list.none=§3[§bSoulglass§3] §7У вас нет зажжённых фонарей душ.
+soulglass.list.elsewhere.one=§3[§bSoulglass§3] §7В этом измерении фонарей душ нет §8(1 в другом)
+soulglass.list.elsewhere.many=§3[§bSoulglass§3] §7В этом измерении фонарей душ нет §8(%s в других)
+soulglass.list.one=§3[§bSoulglass§3] §7Ваш фонарь душ:
+soulglass.list.many=§3[§bSoulglass§3] §7Ваши %s фонарей душ:
 
 ## Панель действий ---------------------------------------------------------
 soulglass.hud.arrived=§aВаш фонарь душ прямо здесь
-soulglass.hud.prefix=§6Фонарь душ  §f
+soulglass.hud.prefix=§bФонарь душ  §f
 soulglass.hud.above=§8 - §7%s вверх
 soulglass.hud.below=§8 - §7%s вниз
 soulglass.hud.other_dimension.one=§8В этом измерении фонарей душ нет §7(1 в другом)
@@ -49,3 +49,22 @@ soulglass.dir.4=позади вас
 soulglass.dir.5=позади слева
 soulglass.dir.6=слева от вас
 soulglass.dir.7=впереди слева
+
+## Menu and credits
+soulglass.menu.title=§bПроводник душ
+soulglass.menu.body.none=§7Нет зажжённых фонарей душ.
+soulglass.menu.body.one=§fЗажжён один фонарь душ.
+soulglass.menu.body.many=§fЗажжено фонарей душ: %s
+soulglass.menu.lanterns=§bМои фонари
+soulglass.menu.lanterns.body=§7От ближайшего к дальнему.
+soulglass.menu.chat=§eПоказать в чате
+soulglass.menu.back=§8Назад
+soulglass.credits.title=§bАвторы
+soulglass.credits.tagline=§7Фонарь душ хранит то, что вы несли.
+soulglass.credits.by=§7Автор
+soulglass.credits.version=§7Версия
+soulglass.credits.license=§7Лицензия
+soulglass.credits.source=§7Исходный код на GitHub
+soulglass.credits.link=§bПоказать ссылку в чате
+soulglass.credits.translators=§7Переведено сообществом. Исправления приветствуются.
+soulglass.credits.disclaimer=Не связано с Mojang Studios, Microsoft или Minecraft.

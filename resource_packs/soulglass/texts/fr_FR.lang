@@ -1,33 +1,33 @@
 ## Soulglass — français.
 ## Base : en_US.lang. Une clé manquante retombe sur l'anglais.
 
-pack.name=Soulglass
-pack.description=Vos objets et votre expérience vous attendent dans une lanterne des âmes, là où vous êtes mort.
+pack.name=§bSoulglass §3[§bRP§3]
+pack.description=§fVos objets et votre expérience vous attendent dans une lanterne des âmes, allumée là où vous êtes mort.
 
 ## Chat -------------------------------------------------------------------
-soulglass.marked=§8[§6Soulglass§8] §7Votre lanterne des âmes brûle là où vous êtes mort.
-soulglass.overflow.one=§8[§6Soulglass§8] §c1 objet n'a pas tenu et est resté au sol.
-soulglass.overflow.many=§8[§6Soulglass§8] §c%s objets n'ont pas tenu et sont restés au sol.
-soulglass.lost=§8[§6Soulglass§8] §cLes objets de cette lanterne des âmes sont perdus.
-soulglass.recovered.one=§8[§6Soulglass§8] §7Vous avez récupéré §f1 objet§7.
-soulglass.recovered.many=§8[§6Soulglass§8] §7Vous avez récupéré §f%s objets§7.
-soulglass.recovered.none=§8[§6Soulglass§8] §7Il ne restait rien à récupérer.
-soulglass.equipped.one=§8[§6Soulglass§8] §f1 pièce §7d'équipement est revenue sur vous.
-soulglass.equipped.many=§8[§6Soulglass§8] §f%s pièces §7d'équipement sont revenues sur vous.
-soulglass.dropped.one=§8[§6Soulglass§8] §71 objet est tombé au sol, votre sac est plein.
-soulglass.dropped.many=§8[§6Soulglass§8] §7%s objets sont tombés au sol, votre sac est plein.
-soulglass.xp.recovered=§8[§6Soulglass§8] §7+§a%s §7d'expérience récupérée.
+soulglass.marked=§3[§bSoulglass§3] §7Votre lanterne des âmes brûle là où vous êtes mort.
+soulglass.overflow.one=§3[§bSoulglass§3] §c1 objet n'a pas tenu et est resté au sol.
+soulglass.overflow.many=§3[§bSoulglass§3] §c%s objets n'ont pas tenu et sont restés au sol.
+soulglass.lost=§3[§bSoulglass§3] §cLes objets de cette lanterne des âmes sont perdus.
+soulglass.recovered.one=§3[§bSoulglass§3] §7Vous avez récupéré §f1 objet§7.
+soulglass.recovered.many=§3[§bSoulglass§3] §7Vous avez récupéré §f%s objets§7.
+soulglass.recovered.none=§3[§bSoulglass§3] §7Il ne restait rien à récupérer.
+soulglass.equipped.one=§3[§bSoulglass§3] §f1 pièce §7d'équipement est revenue sur vous.
+soulglass.equipped.many=§3[§bSoulglass§3] §f%s pièces §7d'équipement sont revenues sur vous.
+soulglass.dropped.one=§3[§bSoulglass§3] §71 objet est tombé au sol, votre sac est plein.
+soulglass.dropped.many=§3[§bSoulglass§3] §7%s objets sont tombés au sol, votre sac est plein.
+soulglass.xp.recovered=§3[§bSoulglass§3] §7+§a%s §7d'expérience récupérée.
 
 ## Liste -------------------------------------------------------------------
-soulglass.list.none=§8[§6Soulglass§8] §7Vous n'avez aucune lanterne des âmes allumée.
-soulglass.list.elsewhere.one=§8[§6Soulglass§8] §7Aucune lanterne des âmes dans cette dimension §8(1 ailleurs)
-soulglass.list.elsewhere.many=§8[§6Soulglass§8] §7Aucune lanterne des âmes dans cette dimension §8(%s ailleurs)
-soulglass.list.one=§8[§6Soulglass§8] §7Votre lanterne des âmes :
-soulglass.list.many=§8[§6Soulglass§8] §7Vos %s lanternes des âmes :
+soulglass.list.none=§3[§bSoulglass§3] §7Vous n'avez aucune lanterne des âmes allumée.
+soulglass.list.elsewhere.one=§3[§bSoulglass§3] §7Aucune lanterne des âmes dans cette dimension §8(1 ailleurs)
+soulglass.list.elsewhere.many=§3[§bSoulglass§3] §7Aucune lanterne des âmes dans cette dimension §8(%s ailleurs)
+soulglass.list.one=§3[§bSoulglass§3] §7Votre lanterne des âmes :
+soulglass.list.many=§3[§bSoulglass§3] §7Vos %s lanternes des âmes :
 
 ## Barre d'action ----------------------------------------------------------
 soulglass.hud.arrived=§aVotre lanterne des âmes est juste ici
-soulglass.hud.prefix=§6Lanterne des âmes  §f
+soulglass.hud.prefix=§bLanterne des âmes  §f
 soulglass.hud.above=§8 - §7%s au-dessus
 soulglass.hud.below=§8 - §7%s en dessous
 soulglass.hud.other_dimension.one=§8Aucune lanterne des âmes dans cette dimension §7(1 ailleurs)
@@ -49,3 +49,22 @@ soulglass.dir.4=derrière vous
 soulglass.dir.5=derrière, à gauche
 soulglass.dir.6=à votre gauche
 soulglass.dir.7=devant à gauche
+
+## Menu and credits
+soulglass.menu.title=§bGuide des Âmes
+soulglass.menu.body.none=§7Aucune lanterne des âmes allumée.
+soulglass.menu.body.one=§fUne lanterne des âmes allumée.
+soulglass.menu.body.many=§f%s lanternes des âmes allumées.
+soulglass.menu.lanterns=§bMes Lanternes
+soulglass.menu.lanterns.body=§7De la plus proche à la plus lointaine.
+soulglass.menu.chat=§eAfficher dans le chat
+soulglass.menu.back=§8Retour
+soulglass.credits.title=§bCrédits
+soulglass.credits.tagline=§7Une lanterne des âmes garde ce que vous portiez.
+soulglass.credits.by=§7Créé par
+soulglass.credits.version=§7Version
+soulglass.credits.license=§7Licence
+soulglass.credits.source=§7Code source sur GitHub
+soulglass.credits.link=§bAfficher le lien dans le chat
+soulglass.credits.translators=§7Traduit par la communauté. Corrections bienvenues.
+soulglass.credits.disclaimer=Sans affiliation avec Mojang Studios, Microsoft ou Minecraft.
