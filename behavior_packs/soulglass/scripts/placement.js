@@ -5,15 +5,15 @@ import {
 } from "./blocks.js";
 
 /**
- * Choosing where a grave appears.
+ * Choosing where a lantern appears.
  *
- * One rule, applied everywhere: the grave goes to the nearest SAFE block,
+ * One rule, applied everywhere: the lantern goes to the nearest SAFE block,
  * measured in three dimensions from where the player died. This is how a bed
  * finds a respawn spot, and it is the whole design.
  *
  * An earlier version had three passes with different standards, and the last
  * of them accepted a liquid position as a desperate measure — so dying at the
- * bottom of the ocean produced a grave inside the water, which is exactly what
+ * bottom of the ocean produced a lantern inside the water, which is exactly what
  * the careful checks existed to prevent. Softening the rule in the branch that
  * runs when things go wrong defeats having the rule at all.
  */
@@ -33,7 +33,7 @@ function touchesLiquid(dimension, location) {
 }
 
 /**
- * Safe means all of it: the grave fits, the owner can stand there and swing at
+ * Safe means all of it: the lantern fits, the owner can stand there and swing at
  * it, and no water or lava is touching the spot.
  */
 function isSafe(dimension, location) {
@@ -74,10 +74,10 @@ function* shellsAround(origin, radius) {
  *
  * needsSupport marks the one case the nearest-safe-block rule cannot solve:
  * a death with no safe block anywhere near, in the void or deep underwater.
- * The grave then rises straight up out of the liquid and stands on a platform
+ * The lantern then rises straight up out of the liquid and stands on a platform
  * built for it — still never inside water or lava.
  */
-export function findGraveSpot(dimension, origin) {
+export function findLanternSpot(dimension, origin) {
   const cfg = CONFIG.placement;
   const floorY = CONFIG.minY[dimension.id] ?? -60;
 
@@ -159,7 +159,7 @@ export function placeMarker(dimension, location) {
 /**
  * Is this block one of the markers?
  *
- * Used to notice a marker that is gone. The registry says a grave is at a
+ * Used to notice a marker that is gone. The registry says a lantern is at a
  * position; the world is what decides whether the block is still there.
  */
 export function isMarker(block) {
@@ -168,7 +168,7 @@ export function isMarker(block) {
 }
 
 /**
- * Optional extra light above the grave. `light_block` is invisible and
+ * Optional extra light above the lantern. `light_block` is invisible and
  * walkable, so it takes the headroom without getting in the way.
  */
 export function placeLight(dimension, markerLocation) {

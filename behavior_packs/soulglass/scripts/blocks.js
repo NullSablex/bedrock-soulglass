@@ -16,7 +16,7 @@ export function isLiquid(block) {
   return id.includes("water") || id.includes("lava");
 }
 
-/** Can a grave occupy this block? */
+/** Can a lantern occupy this block? */
 export function isFree(block) {
   if (!block) return false;
   if (isLiquid(block)) return false;

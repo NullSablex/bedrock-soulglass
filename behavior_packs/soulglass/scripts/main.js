@@ -1,11 +1,11 @@
 import { world } from "@minecraft/server";
 import { subscribeSafe, subscriptionFailures } from "./safe.js";
 import { startTracking } from "./tracker.js";
-import { registerGrave, registerLocator } from "./grave.js";
+import { registerLantern, registerLocator } from "./lantern.js";
 import { registerGuide } from "./guide.js";
 
 startTracking();
-registerGrave();
+registerLantern();
 registerLocator();
 registerGuide();
 

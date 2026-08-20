@@ -1,10 +1,10 @@
 import { system, world } from "@minecraft/server";
 import { CONFIG } from "./config.js";
 import { subscribeSafe } from "./safe.js";
-import { gravesOf } from "./storage.js";
+import { lanternsOf } from "./storage.js";
 import { hintActive } from "./hud.js";
 import { isNote, holdingNote, refreshNote } from "./note.js";
-import { distanceTo, byDistance, nearestGrave } from "./distance.js";
+import { distanceTo, byDistance, nearestLantern } from "./distance.js";
 import { t, tn, join, raw } from "./msg.js";
 
 /**
@@ -19,14 +19,14 @@ const HEADINGS = [
   "soulglass.dir.4", "soulglass.dir.5", "soulglass.dir.6", "soulglass.dir.7",
 ];
 
-function gravesHere(player) {
-  return gravesOf(player.id).filter((g) => g.dimension === player.dimension.id);
+function lanternsHere(player) {
+  return lanternsOf(player.id).filter((g) => g.dimension === player.dimension.id);
 }
 
 /** Heading relative to where the player is looking — "ahead", not "north". */
-function headingTo(player, grave) {
-  const dx = grave.x - player.location.x;
-  const dz = grave.z - player.location.z;
+function headingTo(player, lantern) {
+  const dx = lantern.x - player.location.x;
+  const dz = lantern.z - player.location.z;
 
   const target = Math.atan2(-dx, dz) * (180 / Math.PI);
   let relative = target - player.getRotation().y;
@@ -45,29 +45,29 @@ function actionBarLine(player, near) {
   const distance = Math.round(near.distance);
   if (distance <= 2) return t("soulglass.hud.arrived");
 
-  const dy = Math.round(near.grave.y - player.location.y);
+  const dy = Math.round(near.lantern.y - player.location.y);
   return join(
     t("soulglass.hud.prefix"),
     tn(distance, "soulglass.blocks.one", "soulglass.blocks.many"),
     raw(" §8- §e"),
-    t(headingTo(player, near.grave)),
+    t(headingTo(player, near.lantern)),
     dy > 1 ? t("soulglass.hud.above", dy) : undefined,
     dy < -1 ? t("soulglass.hud.below", -dy) : undefined
   );
 }
 
 /**
- * The trail follows the straight line to the grave, rising and falling with
+ * The trail follows the straight line to the lantern, rising and falling with
  * it — which is why it beats an arrow, which only orients on the flat.
  */
-function drawTrail(player, grave) {
+function drawTrail(player, lantern) {
   const cfg = CONFIG.note.trail;
   if (!cfg?.enabled) return;
 
   const from = player.getHeadLocation();
-  const dx = grave.x + 0.5 - from.x;
-  const dy = grave.y + 0.5 - from.y;
-  const dz = grave.z + 0.5 - from.z;
+  const dx = lantern.x + 0.5 - from.x;
+  const dy = lantern.y + 0.5 - from.y;
+  const dz = lantern.z + 0.5 - from.z;
   const length = Math.sqrt(dx * dx + dy * dy + dz * dz);
   if (length < 1) return;
 
@@ -83,16 +83,16 @@ function drawTrail(player, grave) {
   }
 }
 
-function drawBeacon(player, grave, distance) {
+function drawBeacon(player, lantern, distance) {
   const cfg = CONFIG.note.beacon;
   if (!cfg?.enabled || distance > cfg.visibleWithin) return;
 
   for (let i = 0; i < cfg.height; i++) {
     try {
       player.dimension.spawnParticle(cfg.particle, {
-        x: grave.x + 0.5,
-        y: grave.y + 0.5 + i,
-        z: grave.z + 0.5,
+        x: lantern.x + 0.5,
+        y: lantern.y + 0.5 + i,
+        z: lantern.z + 0.5,
       });
     } catch { /* chunk unloaded */ }
   }
@@ -105,10 +105,10 @@ function drawBeacon(player, grave, distance) {
  * nobody asks: the amount changes no decision, because every lantern is worth
  * walking to and the XP comes back either way.
  */
-function graveLine(player, grave) {
+function lanternLine(player, lantern) {
   return join(
-    raw(`  §8- §f${grave.x} ${grave.y} ${grave.z}  §8- §f`),
-    tn(Math.round(distanceTo(player, grave)), "soulglass.blocks.one", "soulglass.blocks.many")
+    raw(`  §8- §f${lantern.x} ${lantern.y} ${lantern.z}  §8- §f`),
+    tn(Math.round(distanceTo(player, lantern)), "soulglass.blocks.one", "soulglass.blocks.many")
   );
 }
 
@@ -123,10 +123,10 @@ function graveLine(player, grave) {
  * line: otherwise the player reads "you have none" and concludes their loot is
  * gone.
  */
-export function listGraves(player) {
-  const here = gravesHere(player);
+export function listLanterns(player) {
+  const here = lanternsHere(player);
   if (here.length === 0) {
-    const elsewhere = gravesOf(player.id).length;
+    const elsewhere = lanternsOf(player.id).length;
     player.sendMessage(
       elsewhere > 0
         ? tn(elsewhere, "soulglass.list.elsewhere.one", "soulglass.list.elsewhere.many")
@@ -139,16 +139,16 @@ export function listGraves(player) {
     here.length === 1 ? t("soulglass.list.one") : t("soulglass.list.many", here.length)
   );
 
-  for (const grave of byDistance(player, here)) {
-    player.sendMessage(graveLine(player, grave));
+  for (const lantern of byDistance(player, here)) {
+    player.sendMessage(lanternLine(player, lantern));
   }
 }
 
 function statusFor(player) {
-  const near = nearestGrave(player, gravesHere(player));
+  const near = nearestLantern(player, lanternsHere(player));
   if (near) return actionBarLine(player, near);
 
-  const elsewhere = gravesOf(player.id).length;
+  const elsewhere = lanternsOf(player.id).length;
   return elsewhere > 0
     ? tn(elsewhere, "soulglass.hud.other_dimension.one", "soulglass.hud.other_dimension.many")
     : t("soulglass.hud.none");
@@ -161,10 +161,10 @@ export function registerGuide() {
   system.runInterval(() => {
     for (const player of world.getPlayers()) {
       if (!holdingNote(player)) continue;
-      const near = nearestGrave(player, gravesHere(player));
+      const near = nearestLantern(player, lanternsHere(player));
       if (!near) continue;
-      drawTrail(player, near.grave);
-      drawBeacon(player, near.grave, near.distance);
+      drawTrail(player, near.lantern);
+      drawBeacon(player, near.lantern, near.distance);
     }
   }, CONFIG.note.trail?.everyTicks ?? 10);
 
@@ -192,11 +192,11 @@ export function registerGuide() {
       const before = wasSneaking.get(player.id) === true;
       const now = player.isSneaking === true;
       wasSneaking.set(player.id, now);
-      if (now && !before) listGraves(player);
+      if (now && !before) listLanterns(player);
     }
   }, CONFIG.note.refreshTicks);
 
   subscribeSafe(world.afterEvents, "itemUse", (ev) => {
-    if (isNote(ev.itemStack)) listGraves(ev.source);
+    if (isNote(ev.itemStack)) listLanterns(ev.source);
   });
 }

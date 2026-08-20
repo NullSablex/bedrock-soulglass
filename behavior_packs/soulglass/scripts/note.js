@@ -1,6 +1,6 @@
 import { ItemStack } from "@minecraft/server";
 import { CONFIG } from "./config.js";
-import { gravesOf } from "./storage.js";
+import { lanternsOf } from "./storage.js";
 import { byDistance } from "./distance.js";
 
 /**
@@ -15,7 +15,7 @@ import { byDistance } from "./distance.js";
  *
  * The data never lives on the item; it always comes from the registry. That
  * keeps the sheet fresh, and means a sheet that changes hands shows its new
- * holder's graves instead of leaking the previous owner's.
+ * holder's lanterns instead of leaking the previous owner's.
  */
 
 let resolvedItemId;
@@ -43,13 +43,13 @@ export function isNote(stack) {
  * themselves are numbers and read the same everywhere.
  */
 function loreFor(player) {
-  const mine = gravesOf(player.id);
+  const mine = lanternsOf(player.id);
   if (mine.length === 0) return [CONFIG.note.loreBlank];
 
   const lines = [CONFIG.note.loreHeader, "§8-------------------"];
-  for (const grave of byDistance(player, mine)) {
-    const dimension = grave.dimension.replace("minecraft:", "");
-    lines.push(`§f${grave.x}  ${grave.y}  ${grave.z}  §8${dimension}`);
+  for (const lantern of byDistance(player, mine)) {
+    const dimension = lantern.dimension.replace("minecraft:", "");
+    lines.push(`§f${lantern.x}  ${lantern.y}  ${lantern.z}  §8${dimension}`);
   }
   lines.push("§8-------------------", CONFIG.note.loreFooter);
   return lines;
@@ -105,7 +105,7 @@ export function refreshNote(player) {
 
 /**
  * Handed over on respawn — at death the inventory has just been emptied.
- * One sheet per player, not one per death: it lists every grave.
+ * One sheet per player, not one per death: it lists every lantern.
  */
 export function giveNote(player) {
   if (!CONFIG.note.enabled) return;
@@ -130,12 +130,12 @@ export function giveNote(player) {
 }
 
 /**
- * Graves remain: the sheet stays, refreshed. None remain: every copy goes, so
+ * Lanterns remain: the sheet stays, refreshed. None remain: every copy goes, so
  * no dead sheet is left pointing nowhere.
  */
 export function removeNote(player) {
   if (!CONFIG.note.enabled || !CONFIG.note.consumeOnRecover) return;
-  if (gravesOf(player.id).length > 0) {
+  if (lanternsOf(player.id).length > 0) {
     refreshNote(player);
     return;
   }

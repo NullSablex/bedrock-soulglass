@@ -2,14 +2,14 @@ import { CONFIG } from "./config.js";
 import { centreOf } from "./blocks.js";
 
 /**
- * The vault: an invisible entity holding the loot, bound to the grave block.
+ * The vault: an invisible entity holding the loot, bound to the lantern block.
  *
  * It exists because ItemStack is not losslessly serializable — written books,
  * potions, shulker contents, banner patterns and maps are not exposed for
  * reading and writing. A real inventory never converts anything.
  *
  * An entity rather than a hidden container block buys two things: 41 slots,
- * exactly what a player carries, so one grave is always enough; and
+ * exactly what a player carries, so one lantern is always enough; and
  * `private: true`, which keeps it from opening on interaction, making the
  * broken block the only way in.
  */

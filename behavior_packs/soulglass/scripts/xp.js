@@ -53,7 +53,7 @@ export function forgetXp(playerId) {
   samples.delete(playerId);
 }
 
-/** How much to bury with the player who just died. */
+/** How much goes into the lantern of the player who just died. */
 export function xpToBury(player) {
   if (!CONFIG.xp.enabled) return 0;
 
@@ -70,7 +70,7 @@ export function xpToBury(player) {
 
 /**
  * Removes the orbs that dropped on death. Without this the player would
- * receive the experience twice: once from the ground, once from the grave.
+ * receive the experience twice: once from the ground, once from the lantern.
  */
 export function clearDroppedOrbs(dimension, origin) {
   try {
@@ -131,7 +131,7 @@ function spawnOrbs(player, dimension, location, amount) {
 }
 
 /**
- * Returns the experience when the owner breaks the grave.
+ * Returns the experience when the owner breaks the lantern.
  * `location` is the block position the orbs come from.
  */
 export function grantXp(player, amount, dimension, location) {
@@ -145,7 +145,7 @@ export function grantXp(player, amount, dimension, location) {
 
   // No message by default. Orbs flying in and the experience bar filling say
   // it louder than a line of chat, and the amount was already announced when
-  // the grave was created.
+  // the lantern was created.
   if (CONFIG.messages.onRecovery) {
     player.sendMessage(t("soulglass.xp.recovered", amount));
   }

@@ -3,7 +3,7 @@ import { system } from "@minecraft/server";
 /**
  * Short notices on the action bar, with a guard against repetition.
  *
- * This came out of a real bug: the "break the grave" hint went to the chat on
+ * This came out of a real bug: the "break the lantern" hint went to the chat on
  * every `playerInteractWithBlock`. One click produced one line; holding the
  * button produced a flood.
  *

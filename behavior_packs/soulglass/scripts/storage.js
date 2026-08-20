@@ -2,7 +2,7 @@ import { world } from "@minecraft/server";
 import { CONFIG } from "./config.js";
 
 /**
- * The grave registry, persisted in a world dynamic property.
+ * The lantern registry, persisted in a world dynamic property.
  * It survives a server restart; an in-memory Map would not.
  */
 const KEY = "soulglass:records";
@@ -28,51 +28,51 @@ function writeAll(list) {
   }
 }
 
-/** Short position key, to match a block to a grave without scanning. */
+/** Short position key, to match a block to a lantern without scanning. */
 export function posKey(dimensionId, loc) {
   return `${dimensionId}|${Math.floor(loc.x)},${Math.floor(loc.y)},${Math.floor(loc.z)}`;
 }
 
 /**
- * Records a new grave.
+ * Records a new lantern.
  *
  * There is NO pruning by count, and that is deliberate. The registry is the
  * only thing tying a block in the world to its owner: without it the marker
  * becomes an ordinary lantern anyone can break, hiding a vault full of items
- * nobody can reach. Dropping the record does not remove the grave — it
+ * nobody can reach. Dropping the record does not remove the lantern — it
  * abandons it.
  *
- * A grave leaves the registry through exactly one path: its owner recovering
+ * A lantern leaves the registry through exactly one path: its owner recovering
  * the contents.
  */
-export function addGrave(record) {
+export function addLantern(record) {
   const list = readAll();
   list.push(record);
   writeAll(list);
 
   const mine = list.filter((g) => g.ownerId === record.ownerId);
-  if (mine.length >= CONFIG.warnAfterGraves) {
+  if (mine.length >= CONFIG.warnAfterLanterns) {
     console.warn(
-      `[Soulglass] ${record.ownerName} has ${mine.length} graves left to recover`
+      `[Soulglass] ${record.ownerName} has ${mine.length} lanterns left to recover`
     );
   }
 }
 
-export function graveAt(dimensionId, loc) {
+export function lanternAt(dimensionId, loc) {
   const key = posKey(dimensionId, loc);
   return readAll().find((g) => g.key === key);
 }
 
-/** Every grave in the world, for sweeps that are not tied to one player. */
-export function allGraves() {
+/** Every lantern in the world, for sweeps that are not tied to one player. */
+export function allLanterns() {
   return readAll();
 }
 
-export function gravesOf(ownerId) {
+export function lanternsOf(ownerId) {
   return readAll().filter((g) => g.ownerId === ownerId);
 }
 
-export function removeGrave(key) {
+export function removeLantern(key) {
   const list = readAll();
   const index = list.findIndex((g) => g.key === key);
   if (index >= 0) {

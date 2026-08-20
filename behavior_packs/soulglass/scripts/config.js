@@ -1,25 +1,25 @@
 export const CONFIG = {
   /**
-   * The visible grave block. Tried in order: the first one that exists in this
+   * The visible lantern block. Tried in order: the first one that exists in this
    * game version wins. Without a resource pack there is no custom texture, so
    * the choice is among vanilla blocks.
    *
    * Three requirements, and the third is non-negotiable:
    *
-   * 1. NOT A CONTAINER — a grave you can open is not a grave.
+   * 1. NOT A CONTAINER — a lantern you can open is not a lantern.
    *
    * 2. It emits light. Light emission is a property of the block TYPE, declared
    *    in its definition; a script cannot change it. A block that already glows
-   *    saves us from hanging a separate light source next to the grave.
+   *    saves us from hanging a separate light source next to the lantern.
    *
    * 3. BREAKABLE BY HAND, without a tool. Someone who just died owns no
-   *    pickaxe — it is all inside the grave. And `playerBreakBlock` only fires
+   *    pickaxe — it is all inside the lantern. And `playerBreakBlock` only fires
    *    when the block would actually break: with the wrong tool the event never
-   *    arrives and the grave is unrecoverable forever. Crying obsidian was
+   *    arrives and the lantern is unrecoverable forever. Crying obsidian was
    *    tried here and fails for exactly that reason: it needs a diamond pickaxe.
    */
   markerBlocks: [
-    // Soul lantern: blue soul flame over the grave, light level 10, and it
+    // Soul lantern: blue soul flame over the lantern, light level 10, and it
     // breaks instantly by hand.
     "minecraft:soul_lantern",
     "minecraft:sea_lantern",
@@ -31,12 +31,12 @@ export const CONFIG = {
   ],
 
   /**
-   * The vault is an invisible ENTITY bound to the grave, not a hidden block.
+   * The vault is an invisible ENTITY bound to the lantern, not a hidden block.
    *
    * Two reasons. First, its inventory holds exactly what a player carries — 36
-   * inventory slots + 4 armor + 1 offhand — so one grave is always enough; a
+   * inventory slots + 4 armor + 1 offhand — so one lantern is always enough; a
    * 27-slot barrel forced us to stack three of them. Second, `private: true`
-   * keeps the inventory from opening on any interaction: breaking the grave
+   * keeps the inventory from opening on any interaction: breaking the lantern
    * becomes the only way in by the entity's own construction, not by cancelling
    * an event.
    *
@@ -86,7 +86,7 @@ export const CONFIG = {
     refreshTicks: 5,
 
     /**
-     * Particle trail pointing at the grave.
+     * Particle trail pointing at the lantern.
      *
      * This is what the needle should have done and could not. It also improves
      * on a needle, because it points in three dimensions instead of only on the
@@ -101,7 +101,7 @@ export const CONFIG = {
       everyTicks: 10,
     },
 
-    /** Particle beam rising from the grave, visible within this range. */
+    /** Particle beam rising from the lantern, visible within this range. */
     beacon: {
       enabled: true,
       particle: "minecraft:endrod",
@@ -109,25 +109,25 @@ export const CONFIG = {
       visibleWithin: 64,
     },
 
-    /** Disappears from the inventory once no grave is left to point at. */
+    /** Disappears from the inventory once no lantern is left to point at. */
     consumeOnRecover: true,
   },
 
   /**
    * How much the add-on says in chat.
    *
-   * Almost nothing, by default. Recovering a grave already shows itself: the
+   * Almost nothing, by default. Recovering a lantern already shows itself: the
    * items are in the inventory, the armor is on the body, the experience bar
    * moved. Narrating all of that is noise, and six lines for one event reads
    * worse than silence.
    *
    * What survives is only what the player cannot see for themselves — that a
-   * grave now exists somewhere, and that something did not fit and is lying on
+   * lantern now exists somewhere, and that something did not fit and is lying on
    * the ground about to despawn.
    */
   messages: {
-    /** One line on death, so the player knows a grave was created. */
-    onBurial: true,
+    /** One line on death, so the player knows a lantern was created. */
+    onLit: true,
     /** The full breakdown on recovery: items, gear, experience. */
     onRecovery: false,
     /** Only when something did not fit. This one is actionable. */
@@ -152,27 +152,27 @@ export const CONFIG = {
    *
    * The first pass is deliberately early, which means it can miss items still
    * flying outward and experience orbs still spreading. These later passes top
-   * up the same grave rather than making a new one.
+   * up the same lantern rather than making a new one.
    *
    * Missing an orb is not cosmetic: the experience is already stored in the
-   * grave, so anything left on the ground is duplicated experience.
+   * lantern, so anything left on the ground is duplicated experience.
    */
   sweepTicks: [10, 30, 60],
 
-  /** Only the owner breaks the grave and receives its contents. */
+  /** Only the owner breaks the lantern and receives its contents. */
   ownerOnly: true,
 
   /**
-   * There is no cap on graves per player — dying again before recovering the
+   * There is no cap on lanterns per player — dying again before recovering the
    * previous one creates another, and all of them stay valid.
    *
    * A cap would be worse than the disease: dropping a record does not remove
    * the block from the world, it only abandons it with the items inside. A
-   * grave leaves the registry through one path only, its owner recovering it.
+   * lantern leaves the registry through one path only, its owner recovering it.
    *
    * This number is merely when to warn in the log that someone is piling up.
    */
-  warnAfterGraves: 10,
+  warnAfterLanterns: 10,
 
   /**
    * When the player's state (XP and equipment) gets photographed.
@@ -196,7 +196,7 @@ export const CONFIG = {
     enabled: true,
   },
 
-  /** Experience stored with the items, returned when the grave is broken. */
+  /** Experience stored with the items, returned when the lantern is broken. */
   xp: {
     enabled: true,
     /**
@@ -211,7 +211,7 @@ export const CONFIG = {
     deliveryMode: "orbs",
     /** Assumed value of each orb spawned through the API. */
     xpPerOrb: 1,
-    /** Entity cap per grave — without it 2000 xp would become lag. */
+    /** Entity cap per lantern — without it 2000 xp would become lag. */
     maxOrbs: 80,
     /** Ticks between each batch of orbs, to spread the cost. */
     orbBatchDelay: 2,
@@ -221,13 +221,13 @@ export const CONFIG = {
      *
      * Wider than pickupRadius on purpose: orbs scatter further than items and
      * keep drifting. An orb left behind is experience the player receives
-     * twice, since the same amount is already stored in the grave.
+     * twice, since the same amount is already stored in the lantern.
      */
     orbRadius: 16,
   },
 
   /**
-   * The grave is indestructible by anything other than its owner breaking it.
+   * The lantern is indestructible by anything other than its owner breaking it.
    * Each key here closes a different destruction vector.
    */
   protection: {
@@ -236,7 +236,7 @@ export const CONFIG = {
     /** A piston shoving the marker out of place. */
     pistons: true,
     /**
-     * The block the marker rests on counts as part of the grave.
+     * The block the marker rests on counts as part of the lantern.
      *
      * A soul lantern needs support. Knock the block out from under it and the
      * lantern pops off as an ordinary item — and `playerBreakBlock` fires for
@@ -288,18 +288,18 @@ export const CONFIG = {
    * Prevention closes what announces itself: a player, an explosion, a piston.
    * This closes the rest, and the rest is ordinary survival — gravel falling
    * onto the lantern, fire, lava reaching it, another addon that has never
-   * heard of this one. The registry is authoritative: if it says a grave is
+   * heard of this one. The registry is authoritative: if it says a lantern is
    * there, the block goes back. 0 disables the sweep.
    *
-   * Cost is one block read per grave per pass, skipping unloaded chunks.
+   * Cost is one block read per lantern per pass, skipping unloaded chunks.
    */
   repairTicks: 100,
 
   /**
-   * Where a grave may appear.
+   * Where a lantern may appear.
    *
    * Finding empty space is not enough: dying in lava or at the bottom of the
-   * sea would put the grave inside the liquid, and the owner would have to die
+   * sea would put the lantern inside the liquid, and the owner would have to die
    * again to recover their own belongings. The spot has to be REACHABLE —
    * solid ground to stand on, headroom, and no liquid touching it.
    */
@@ -307,7 +307,7 @@ export const CONFIG = {
     /**
      * How far to look for a safe block, in every direction.
      *
-     * The grave goes to the nearest safe block from where the player died, the
+     * The lantern goes to the nearest safe block from where the player died, the
      * way a bed finds a respawn spot. Search cost grows with the cube of this
      * number, but it is paid only by deaths that need it: most resolve at the
      * death position or one block away.
@@ -327,8 +327,8 @@ export const CONFIG = {
     avoidLiquids: true,
     /**
      * Last resort: when nothing works (death in the void, mid-ocean), place a
-     * support block under the grave. An improvised platform beats an
-     * unreachable grave.
+     * support block under the lantern. An improvised platform beats an
+     * unreachable lantern.
      */
     buildSupport: true,
     supportBlock: "minecraft:cobblestone",
@@ -345,10 +345,10 @@ export const CONFIG = {
     stabiliseBase: true,
 
     /**
-     * EXTRA light source, one block above the grave.
+     * EXTRA light source, one block above the lantern.
      *
      * Off by default because the marker already glows on its own: a soul
-     * lantern emits light level 10, enough to find the grave in the dark. Turn
+     * lantern emits light level 10, enough to find the lantern in the dark. Turn
      * it on for the wider reach of level 15, or if you swap the marker for a
      * block that emits nothing.
      *
@@ -364,7 +364,7 @@ export const CONFIG = {
   },
 
   /**
-   * Blocks a grave may replace. Liquids are deliberately absent — see
+   * Blocks a lantern may replace. Liquids are deliberately absent — see
    * `placement.avoidLiquids`.
    */
   replaceable: [
