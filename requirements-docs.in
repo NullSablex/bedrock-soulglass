@@ -5,7 +5,7 @@
 # theming with no migration path, and Material for MkDocs does not run on it.
 mkdocs==1.6.1
 mkdocs-material==9.7.7
-pymdown-extensions==11.0.1
+pymdown-extensions==11.0.2
 
 # Click a screenshot to open it full size. Minecraft captures are unreadable at
 # body width — action bar text especially.
