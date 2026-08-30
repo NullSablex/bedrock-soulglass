@@ -27,7 +27,11 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  build:
+  # Named docs-build, not build: this only builds the MkDocs site, and a job
+  # plainly called `build` reads like it builds the add-on itself. That job runs
+  # only on docs paths, so requiring it as a status check leaves every other PR
+  # waiting forever on a check that is never reported.
+  docs-build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -72,7 +76,7 @@ jobs:
   deploy:
     # Pull requests build the site to catch breakage, but never publish it.
     if: github.event_name != 'pull_request'
-    needs: build
+    needs: docs-build
     runs-on: ubuntu-latest
     environment:
       name: github-pages
