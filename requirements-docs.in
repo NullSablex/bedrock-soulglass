@@ -18,4 +18,4 @@ mkdocs-static-i18n==1.3.1
 # Required by Material's built-in `social` plugin, which renders the link
 # preview card shown when the site is pasted into Discord or a chat app.
 pillow==12.3.0
-cairosvg==2.9.0
+cairosvg==2.9.1
