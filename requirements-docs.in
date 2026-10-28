@@ -4,7 +4,7 @@
 # Held at 1.x on purpose. MkDocs 2.0 removes the plugin system and rewrites
 # theming with no migration path, and Material for MkDocs does not run on it.
 mkdocs==1.6.1
-mkdocs-material==9.7.7
+mkdocs-material==9.8.0
 pymdown-extensions==12.3
 
 # Click a screenshot to open it full size. Minecraft captures are unreadable at
